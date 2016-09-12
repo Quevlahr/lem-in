@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/07/18 19:08:29 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/12 10:08:01 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int				ft_nb_ants(char *file)
 		ft_error_lem_in("Le nombre de fourmis est manquant ou au mauvais format");
 	return (0);
 }
-
 
 int				main(void)
 {

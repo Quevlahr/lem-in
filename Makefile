@@ -6,7 +6,7 @@
 #    By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/28 20:38:08 by quroulon          #+#    #+#              #
-#    Updated: 2016/06/29 17:28:24 by quroulon         ###   ########.fr        #
+#    Updated: 2016/09/12 11:21:07 by quroulon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,18 +27,18 @@ HEADER		=	lem-in.h
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make -sC libftprintf/
+	# @make -sC libftprintf/
 	@$(CC) $(CFLAGS) -c -I $(HEADER) $(SRC)
 	@$(CC) -o $(NAME) $(OBJ) $(LIB)
 	@echo "COMPILATION DONE"
 
 clean:
-	@make clean -sC libftprintf/
+	# @make clean -sC libftprintf/
 	@rm -f $(OBJ)
 	@echo "CLEAN DONE"
 
 fclean: clean
-	@make fclean -sC libftprintf/
+	# @make fclean -sC libftprintf/
 	@rm -f $(NAME)
 	@echo "FCLEAN DONE"
 
