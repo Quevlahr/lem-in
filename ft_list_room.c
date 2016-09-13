@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_listroom.c                                 :+:      :+:    :+:   */
+/*   ft_list_room.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 14:01:08 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/12 16:15:37 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/13 10:06:56 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,17 @@ void			ft_push_room(t_lem_in *env)
 		env->room = env->room->next;
 		env->room->next = NULL;
 	}
+}
+
+int				ft_len_room(t_room *room)
+{
+	int			nb;
+
+	nb = 0;
+	while (room)
+	{
+		nb++;
+		room = room->next;
+	}
+	return (nb);
 }

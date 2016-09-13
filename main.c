@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/12 17:07:31 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/13 12:10:36 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,33 +60,44 @@ int				ft_check_room(char *file, t_lem_in **env)
 	(*env)->tmp_coo1 = 0;
 	(*env)->tmp_coo2 = 0;
 	(*env)->tmp_name = NULL;
-	while (file[i] != '\n')
+	while (file[i] != '\0' && file[i] != '\n')
 		i++;
 	i++;
 	while (file[i] != '\0')
 	{
 		j = 0;
-		while (file[i] != ' ' && file[i] != '\n' && i++)
+		while (file[i] != '\0' && file[i] != ' ' && file[i] != '\n' && i++)
 			j++;
 		if (file[i] == '\n')
-			return (i);
+			break ;
 		(*env)->tmp_name = ft_strsub(file, i - j, j);
 		i++;
 		(*env)->tmp_coo1 = ft_atoi(file + i);
-		while (ft_isdigit(file[i]) == 1)
+		while (file[i] != '\0' && ft_isdigit(file[i]) == 1)
 			i++;
 		i++;
 		(*env)->tmp_coo2 = ft_atoi(file + i);
-		while (ft_isdigit(file[i]) == 1)
+		while (file[i] != '\0' && ft_isdigit(file[i]) == 1)
 			i++;
 		i++;
 		ft_push_room(*env);
 	}
+	(*env)->nb_room = ft_len_room((*env)->room->begin);
+	(*env)->room = (*env)->room->begin;
+	while ((*env)->room->next)
+	{
+		(*env)->room->doors = (t_room**)malloc(sizeof(t_room*) * (*env)->nb_room);
+		j = 0;
+		while (j < (*env)->nb_room)
+		{
+			(*env)->room->doors[j] = NULL;
+			j++;
+		}
+		(*env)->room = (*env)->room->next;
+	}
+	(*env)->room->doors = (t_room**)malloc(sizeof(t_room*) * (*env)->nb_room);
+	(*env)->room = (*env)->room->begin;
 	return (i);
-	// (*env)->room = (*env)->room->begin;
-	// ft_printf("LA%s\n", (*env)->room->name);
-	// if (file[i] == '#' && file[i + 1] == '#')
-	// if (file[i] != '#' || file[i] != 'L')
 
 }
 
@@ -95,26 +106,49 @@ int				ft_check_path(char *file, t_lem_in **env, int i)
 	int			j;
 	char		*str1;
 	char		*str2;
+	t_room		*tmp;
 
 	str1 = NULL;
 	str2 = NULL;
+	tmp = NULL;
 	while (file[i] != '\0')
 	{
 		j = 0;
 		i++;
-		while (file[i] != '-')
+		while (file[i] != '\0' && file[i] != '-' && i++)
 			j++;
+		ft_printf("iiiiii%c, %d, %d\n", file[i - j], i, j);
 		str1 = ft_strsub(file, i - j, j);
 		j = 0;
-		while (file[i] != '\n')
+		while (file[i] != '\0' && file[i] != '\n' && i++)
 			j++;
 		str2 = ft_strsub(file, i - j, j);
 	}
-	(*env)->room = (*env)->room->begin;
-	while ((*env)->room)
+	while ((*env)->room->next)
 	{
-		
+			ft_printf("str1 : %s, room->name : %s\n", str1, (*env)->room->name);
+		if (ft_strcmp(str1, (*env)->room->name) == 0 && tmp == NULL)
+			tmp = (*env)->room;
+		else if (ft_strcmp(str2, (*env)->room->name) == 0 && tmp == NULL)
+			tmp = (*env)->room;
+		else if ((ft_strcmp(str2, (*env)->room->name) == 0 ||
+			ft_strcmp(str1, (*env)->room->name) == 0) && tmp != NULL)
+		{
+			j = 0;
+			while ((*env)->room->doors[j] != NULL)
+				j++;
+			(*env)->room->doors[j] = tmp;
+			j = 0;
+			while (tmp->doors[j] != NULL)
+				j++;
+			tmp->doors[j] = (*env)->room;
+		}
+		else if (ft_strcmp(str1, (*env)->room->name) == 0)
+			(*env)->room->doors[0] = tmp;
+		(*env)->room = (*env)->room->next;
 	}
+	(*env)->room = (*env)->room->begin;
+	return (0);
 }
 
 int				main(void)
@@ -129,12 +163,18 @@ int				main(void)
 	env->nb_ant = ft_nb_ants(file);
 	ft_check_path(file, &env, ft_check_room(file, &env));
 
-
-
+	int i;
 	env->room = env->room->begin;
 	while (env->room)
 	{
-		ft_printf("%s, %d, %d\n", env->room->name, env->room->coo1, env->room->coo2);
+		i = 0;
+		ft_printf("room : %s, %d, %d\n", env->room->name, env->room->coo1, env->room->coo2);
+		while (env->room->doors[i])
+		{
+			ft_printf("\tconnect to : %s\n", env->room->doors[i]->name);
+			i++;
+		}
+		ft_printf("%d\n", i);
 		env->room = env->room->next;
 	}
 	return (0);
