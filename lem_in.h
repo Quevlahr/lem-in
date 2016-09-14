@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:40:54 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/13 16:16:33 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/14 10:24:58 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct		s_lem_in
 	int				tmp_coo2;
 	char			*tmp_name;
 	t_room			*room;
+	int				t_start;
+	int				t_end;
 	t_room			*start;
 	t_room			*end;
 }					t_lem_in;

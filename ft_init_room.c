@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 15:29:12 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/13 19:02:52 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/14 12:00:46 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int				ft_recup_room(int i, char *file, t_lem_in *env)
 	while (file[i] != '\0' && ft_isdigit(file[i]) == 1)
 		i++;
 	i++;
-	ft_printf("%s, %d, %d\n", env->tmp_name, env->tmp_coo1, env->tmp_coo2);
 	ft_push_room(env);
 	return (i);
 }
@@ -57,6 +56,23 @@ void			ft_init_doors(t_lem_in *env)
 	env->room = env->room->begin;
 }
 
+int				ft_verif_room(int j, int *i, char *file, t_lem_in *env)
+{
+	env->tmp = 0;
+	while (file[(*i)] != '\0' && file[(*i)] != '\n')
+	{
+		if (file[(*i)] == ' ')
+			env->tmp++;
+		(*i)++;
+	}
+	ft_printf("DEBUT%sFIN\n", ft_strsub(file, j, 5));
+	if (env->tmp == 2 && (*i) - j >= 5)
+		(*i) = ft_recup_room(j, file, env);
+	else
+		return (0);
+	return (1);
+}
+
 int				ft_check_room(char *file, t_lem_in **env)
 {
 	int			i;
@@ -69,37 +85,43 @@ int				ft_check_room(char *file, t_lem_in **env)
 	while (file[i] != '\0')
 	{
 		j = i;
-		if (file[i] == '#')
+		if (file[i] == '#' && i++)
 		{
-			i++;
-			if (file[i] == '#')
+			if (file[i] == '#' && i++)
 			{
-				while (file[i] != '\0' && file[i] != '\n')
+				(*env)->tmp = 0;
+				while (file[i] != '\0' && file[i] != '\n' && i++)
+					(*env)->tmp++;
+				if (ft_strcmp(ft_strsub(file, i - (*env)->tmp, (*env)->tmp), "start") == 0)
+				{
+					(*env)->t_start = 1;
 					i++;
-				//start end
+					j += 8;
+					ft_verif_room(j, &i, file, *env);
+				}
+				else if (ft_strcmp(ft_strsub(file, i - (*env)->tmp, (*env)->tmp), "end") == 0)
+				{
+					(*env)->t_end = 1;
+					i++;
+					j += 6;
+					ft_verif_room(j, &i, file, *env);
+				}
 			}
 			else
 				while (file[i] != '\0' && file[i] != '\n')
 					i++;
-			i++;
+			// i++;
 		}
 		else if (file[i] == 'L')
 			ft_error_lem_in("Une salle commence par la lettre 'L'");
 		else
-		{
-			(*env)->tmp = 0;
-			while (file[i] != '\0' && file[i] != '\n')
-			{
-				if (file[i] == ' ')
-					(*env)->tmp++;
-				i++;
-			}
-			if ((*env)->tmp == 2 && i - j >= 5)
-				i = ft_recup_room(j, file, *env);
-			else
+			if (ft_verif_room(j, &i, file, *env) == 0)
 				break ;
-		}
 	}
+	// if ((*env)->t_start == 0)
+	// 	ft_error_lem_in("Il manque une salle start");
+	// else if ((*env)->t_end == 0)
+	// 	ft_error_lem_in("Il manque une salle end");
 	ft_init_doors(*env);
 	return (j - 1);
 }

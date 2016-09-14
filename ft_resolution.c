@@ -6,13 +6,13 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 19:08:06 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/13 19:08:42 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/14 11:08:04 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int			ft_resolution(t_lem_in *env)
-{
-	return (0);
-}
+// int			ft_resolution(t_lem_in *env)
+// {
+// 	return (0);
+// }
