@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 15:29:12 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/15 15:33:23 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/15 18:36:44 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,15 @@ int				ft_hashtag(int j, int *i, char *file, t_lem_in *env)
 			j += 6;
 			ft_verif_room(j, i, file, env);
 		}
+		else
+			(*i)++;
 	}
 	else
+	{
 		while (file[*i] != '\0' && file[*i] != '\n')
 			(*i)++;
+		(*i)++;
+	}
 	return (1);
 }
 
@@ -105,9 +110,7 @@ int				ft_check_room(char *file, t_lem_in **env)
 	int			i;
 	int			j;
 
-	i = 0;
-	while (file[i] != '\0' && file[i] != '\n')
-		i++;
+	i = (*env)->tmp;
 	i++;
 	while (file[i] != '\0')
 	{
@@ -116,9 +119,8 @@ int				ft_check_room(char *file, t_lem_in **env)
 			ft_hashtag(j, &i, file, *env);
 		else if (file[i] == 'L')
 			ft_error_lem_in("Une salle commence par la lettre 'L'");
-		else
-			if (ft_verif_room(j, &i, file, *env) == 0)
-				break ;
+		else if (ft_verif_room(j, &i, file, *env) == 0)
+			break ;
 	}
 	if ((*env)->t_start == 0)
 		ft_error_lem_in("Il manque une salle start");

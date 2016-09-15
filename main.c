@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/15 17:08:49 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/15 18:34:25 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,28 @@ void			ft_get_file(char **file)
 	ft_strdel(&buf);
 }
 
-int				ft_nb_ants(char *file)
+int				ft_nb_ants(char *file, t_lem_in **env)
 {
 	int			i;
+	int			j;
 
 	i = 0;
-	while (ft_isdigit(file[i]) == 1)
+	j = 0;
+	while (file[i] != '\0' && file[i] == '#')
+	{
 		i++;
-	// while (file[i] == '\t' || file[i] == ' ') // vérifie les espaces
-	// 	i++;
+		ft_hashtag(i, &i, file, *env);
+	}
+	(*env)->tmp = 0;
+	while (ft_isdigit(file[i]) == 1)
+	{
+		j++;
+		i++;
+	}
 	if (file[i] == '\n')
 	{
-		i = ft_atoi(file);
-		return (i);
+		(*env)->tmp = i;
+		return (ft_atoi(file + (i - j)));
 	}
 	else
 		ft_error_lem_in("Le nombre de fourmis est manquant ou au mauvais format");
@@ -109,6 +118,11 @@ int				main(void)
 
 	env = (t_lem_in*)malloc(sizeof (t_lem_in));
 	env->room = NULL;
+	env->nb_ant = 0;
+	env->nb_room = 0;
+	env->room = NULL;
+	env->start = NULL;
+	env->end = NULL;
 	env->tmp_coo1 = 0;
 	env->tmp_coo2 = 0;
 	env->tmp_name = NULL;
@@ -116,8 +130,9 @@ int				main(void)
 	env->t_start = 0;
 	env->t_end = 0;
 	env->file = NULL;
+
 	ft_get_file(&(env->file));
-	env->nb_ant = ft_nb_ants(env->file);
+	env->nb_ant = ft_nb_ants(env->file, &env);
 	ft_check_path(env->file, &env, ft_check_room(env->file, &env));
 	// ft_resolution(env);
 
