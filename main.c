@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/15 18:34:25 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/15 18:39:19 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,12 +136,12 @@ int				main(void)
 	ft_check_path(env->file, &env, ft_check_room(env->file, &env));
 	// ft_resolution(env);
 
-
-	// ft_printf("start room : %s\nend room : %s\n", env->start->name, env->end->name);
-	// for (int i = 0; env->start->doors[i]; i++)
-	// 	ft_printf("start connect to : %s\n", env->start->doors[i]->name);
-	// for (int i = 0; env->end->doors[i]; i++)
-	// 	ft_printf("end connect to : %s\n", env->end->doors[i]->name);
+	ft_printf("nb fourmis : %d\n\n", env->nb_ant);
+	ft_printf("start room : %s\nend room : %s\n", env->start->name, env->end->name);
+	for (int i = 0; env->start->doors[i]; i++)
+		ft_printf("start connect to : %s\n", env->start->doors[i]->name);
+	for (int i = 0; env->end->doors[i]; i++)
+		ft_printf("end connect to : %s\n", env->end->doors[i]->name);
 	int i;
 	env->room = env->room->begin;
 	while (env->room)

@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 15:29:12 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/15 18:36:44 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/15 18:41:34 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,16 @@ int				ft_hashtag(int j, int *i, char *file, t_lem_in *env)
 			env->t_start = 1;
 			(*i)++;
 			j += 8;
-			ft_verif_room(j, i, file, env);
+			if (ft_verif_room(j, i, file, env) == 0)
+				ft_error_lem_in("La salle start n'es pas au bon format");
 		}
 		else if (ft_strcmp(ft_strsub(file, (*i) - env->tmp, env->tmp), "end") == 0 && env->t_end == 0)
 		{
 			env->t_end = 1;
 			(*i)++;
 			j += 6;
-			ft_verif_room(j, i, file, env);
+			if (ft_verif_room(j, i, file, env) == 0)
+				ft_error_lem_in("La salle end n'es pas au bon format");
 		}
 		else
 			(*i)++;
