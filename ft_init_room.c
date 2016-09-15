@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 15:29:12 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/14 12:00:46 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/15 15:33:23 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,38 @@ int				ft_verif_room(int j, int *i, char *file, t_lem_in *env)
 			env->tmp++;
 		(*i)++;
 	}
-	ft_printf("DEBUT%sFIN\n", ft_strsub(file, j, 5));
 	if (env->tmp == 2 && (*i) - j >= 5)
 		(*i) = ft_recup_room(j, file, env);
 	else
 		return (0);
+	return (1);
+}
+
+int				ft_hashtag(int j, int *i, char *file, t_lem_in *env)
+{
+	if (file[(*i)] == '#' && (*i)++)
+	{
+		env->tmp = 0;
+		while (file[*i] != '\0' && file[*i] != '\n' && (*i)++)
+			env->tmp++;
+		if (ft_strcmp(ft_strsub(file, (*i) - env->tmp, env->tmp), "start") == 0 && env->t_start == 0)
+		{
+			env->t_start = 1;
+			(*i)++;
+			j += 8;
+			ft_verif_room(j, i, file, env);
+		}
+		else if (ft_strcmp(ft_strsub(file, (*i) - env->tmp, env->tmp), "end") == 0 && env->t_end == 0)
+		{
+			env->t_end = 1;
+			(*i)++;
+			j += 6;
+			ft_verif_room(j, i, file, env);
+		}
+	}
+	else
+		while (file[*i] != '\0' && file[*i] != '\n')
+			(*i)++;
 	return (1);
 }
 
@@ -86,42 +113,17 @@ int				ft_check_room(char *file, t_lem_in **env)
 	{
 		j = i;
 		if (file[i] == '#' && i++)
-		{
-			if (file[i] == '#' && i++)
-			{
-				(*env)->tmp = 0;
-				while (file[i] != '\0' && file[i] != '\n' && i++)
-					(*env)->tmp++;
-				if (ft_strcmp(ft_strsub(file, i - (*env)->tmp, (*env)->tmp), "start") == 0)
-				{
-					(*env)->t_start = 1;
-					i++;
-					j += 8;
-					ft_verif_room(j, &i, file, *env);
-				}
-				else if (ft_strcmp(ft_strsub(file, i - (*env)->tmp, (*env)->tmp), "end") == 0)
-				{
-					(*env)->t_end = 1;
-					i++;
-					j += 6;
-					ft_verif_room(j, &i, file, *env);
-				}
-			}
-			else
-				while (file[i] != '\0' && file[i] != '\n')
-					i++;
-			// i++;
-		}
+			ft_hashtag(j, &i, file, *env);
 		else if (file[i] == 'L')
 			ft_error_lem_in("Une salle commence par la lettre 'L'");
 		else
 			if (ft_verif_room(j, &i, file, *env) == 0)
 				break ;
 	}
-	// if ((*env)->t_start == 0)
-	// 	ft_error_lem_in("Il manque une salle start");
-	// else if ((*env)->t_end == 0)
-	// 	ft_error_lem_in("Il manque une salle end");
+	if ((*env)->t_start == 0)
+		ft_error_lem_in("Il manque une salle start");
+	else if ((*env)->t_end == 0)
+		ft_error_lem_in("Il manque une salle end");
 	ft_init_doors(*env);
 	return (j - 1);
 }

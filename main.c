@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/14 10:39:04 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/15 17:08:49 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int				ft_nb_ants(char *file)
 	i = 0;
 	while (ft_isdigit(file[i]) == 1)
 		i++;
-	while (file[i] == '\t' || file[i] == ' ')
-		i++;
+	// while (file[i] == '\t' || file[i] == ' ') // vérifie les espaces
+	// 	i++;
 	if (file[i] == '\n')
 	{
 		i = ft_atoi(file);
@@ -105,7 +105,6 @@ int				ft_check_path(char *file, t_lem_in **env, int i)
 
 int				main(void)
 {
-	char		*file;
 	t_lem_in	*env;
 
 	env = (t_lem_in*)malloc(sizeof (t_lem_in));
@@ -116,12 +115,18 @@ int				main(void)
 	env->tmp = 0;
 	env->t_start = 0;
 	env->t_end = 0;
-	file = NULL;
-	ft_get_file(&file);
-	env->nb_ant = ft_nb_ants(file);
-	ft_check_path(file, &env, ft_check_room(file, &env));
+	env->file = NULL;
+	ft_get_file(&(env->file));
+	env->nb_ant = ft_nb_ants(env->file);
+	ft_check_path(env->file, &env, ft_check_room(env->file, &env));
 	// ft_resolution(env);
 
+
+	// ft_printf("start room : %s\nend room : %s\n", env->start->name, env->end->name);
+	// for (int i = 0; env->start->doors[i]; i++)
+	// 	ft_printf("start connect to : %s\n", env->start->doors[i]->name);
+	// for (int i = 0; env->end->doors[i]; i++)
+	// 	ft_printf("end connect to : %s\n", env->end->doors[i]->name);
 	int i;
 	env->room = env->room->begin;
 	while (env->room)

@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 14:01:08 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/13 10:06:56 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/15 15:33:11 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@ t_room			*ft_new_room(t_lem_in *env)
 	new_room->name = ft_strcpy(new_room->name, env->tmp_name);
 	new_room->coo1 = env->tmp_coo1;
 	new_room->coo2 = env->tmp_coo2;
+	if (env->t_start == 1)
+	{
+		env->start = new_room;
+		new_room->id = 0;
+		env->t_start = 2;
+	}
+	else if (env->t_end == 1)
+	{
+		env->end = new_room;
+		new_room->id = 2;
+		env->t_end = 2;
+	}
+	else
+		new_room->id = 1;
 	return (new_room);
 }
 
