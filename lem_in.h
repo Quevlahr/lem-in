@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:40:54 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/15 17:15:01 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/19 11:34:48 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct		s_room
 	int				coo1;
 	int				coo2;
 	int				id;
+	int				pass;
 	struct s_room	*next;
 	struct s_room	*begin;
 	struct s_room	**doors;
@@ -50,6 +51,9 @@ void				ft_push_room(t_lem_in *env);
 int					ft_len_room(t_room *room);
 int					ft_check_room(char *file, t_lem_in **env);
 int					ft_hashtag(int j, int *i, char *file, t_lem_in *env);
+int					ft_solve(t_room *start, t_room *end);
+
+void				ft_put_lem_in(t_lem_in *env);
 
 // t_room				*ft_new_room(char *name);
 

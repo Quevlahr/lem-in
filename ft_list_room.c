@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 14:01:08 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/15 15:33:11 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/19 10:46:02 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_room			*ft_new_room(t_lem_in *env)
 {
 	t_room		*new_room;
+	static int	id = 2;
 
 	if (!(new_room = (t_room*)malloc(sizeof(t_room))))
 		ft_error_lem_in("Malloc error");
@@ -22,6 +23,7 @@ t_room			*ft_new_room(t_lem_in *env)
 	new_room->name = ft_strcpy(new_room->name, env->tmp_name);
 	new_room->coo1 = env->tmp_coo1;
 	new_room->coo2 = env->tmp_coo2;
+	new_room->pass = 0;
 	if (env->t_start == 1)
 	{
 		env->start = new_room;
@@ -31,11 +33,14 @@ t_room			*ft_new_room(t_lem_in *env)
 	else if (env->t_end == 1)
 	{
 		env->end = new_room;
-		new_room->id = 2;
+		new_room->id = 1;
 		env->t_end = 2;
 	}
 	else
-		new_room->id = 1;
+	{
+		new_room->id = id;
+		id++;
+	}
 	return (new_room);
 }
 
