@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 19:08:06 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/20 13:21:54 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/20 14:49:10 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int				ft_solve(t_lem_in *env, t_room *start, int *nb)
 	int			tmp = 1;
 
 	i = 0;
-	// ft_printf("room : %s, id : %d, nb : %d.\n", start->name, start->id, *nb);
 	start->pass = 1;
 	while (start->doors[i])
 	{
@@ -51,9 +50,8 @@ int				ft_solve(t_lem_in *env, t_room *start, int *nb)
 		{
 			(*nb)++;
 			start->pass = 0;
-			// ft_printf("room : %s, id : %d, nb : %d.\n", start->doors[i]->name, start->doors[i]->id, *nb);
-			ft_printf("salle : %s --> %s, nb : %d, pass : %d\n", start->name, start->doors[i]->name, *nb, start->doors[i]->pass);
-			start->path = start->doors[i];
+			// ft_printf("salle : %s --> %s, nb : %d, pass : %d\n", start->name, start->doors[i]->name, *nb, start->doors[i]->pass);
+			start->tmp_path = start->doors[i];
 			return (1);
 		}
 		i++;
@@ -64,14 +62,14 @@ int				ft_solve(t_lem_in *env, t_room *start, int *nb)
 		if (start->doors[i]->pass == 0)
 		{
 			start->tmp_path = start->doors[i];
-			ft_printf("salle : %s --> %s, nb : %d, pass : %d\n", start->name, start->doors[i]->name, *nb, start->doors[i]->pass);
+			// ft_printf("salle : %s --> %s, nb : %d, pass : %d\n", start->name, start->doors[i]->name, *nb, start->doors[i]->pass);
 			(*nb)++;
 			if ((*nb) < env->tmp && (tmp = ft_solve(env, start->doors[i], nb)))
 			{
 				env->tmp = *nb;
 				(*nb) -= 2;
-				ft_printf("salle : %s <-- %s, nb : %d, pass : %d\n", start->name, start->doors[i]->name, *nb, start->doors[i]->pass);
-				ft_printf("CESTBON\n");
+				// ft_printf("salle : %s <-- %s, nb : %d, pass : %d\n", start->name, start->doors[i]->name, *nb, start->doors[i]->pass);
+				// ft_printf("CESTBON\n");
 				env->room = env->start;
 				while (env->room)
 				{
@@ -85,15 +83,13 @@ int				ft_solve(t_lem_in *env, t_room *start, int *nb)
 				(*nb)--;
 			if (tmp == 0)
 			{
-				ft_printf("salle : %s <-- %s, nb : %d, pass : %d\n", start->name, start->doors[i]->name, *nb, start->doors[i]->pass);
+				// ft_printf("salle : %s <-- %s, nb : %d, pass : %d\n", start->name, start->doors[i]->name, *nb, start->doors[i]->pass);
 			}
 		}
 		i++;
 
 	}
 	(*nb)--;
-	// env->i--;
-	// env->path[env->i] = NULL;
 	start->pass = 0;
 	return (0);
 }
@@ -108,7 +104,6 @@ int				ft_resolution(t_lem_in *env)
 
 	ft_solve(env, env->start, &nb);
 	env->room = env->start;
-	ft_printf("name : %s, id : %d, path : %s\n", env->room->name, env->room->id, env->room->path->name);
 	while (env->room)
 	{
 		ft_printf("path : %s\n", env->room->name);
@@ -116,17 +111,6 @@ int				ft_resolution(t_lem_in *env)
 			break ;
 		env->room = env->room->path;
 	}
-
-
-	// env->room = env->start;
-	// while (env->room)
-	// {
-	// 	if (env->room->id == 1)
-	// 		ft_printf("name : %s, id : %d, path : %s\n", env->room->name, env->room->id, env->room->path->name);
-	// 	if (!env->room->next)
-	// 		break ;
-	// 	env->room = env->room->next;
-	// }
 
 	return (0);
 }
