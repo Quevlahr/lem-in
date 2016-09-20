@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 14:01:08 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/19 10:46:02 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/20 12:22:14 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_room			*ft_new_room(t_lem_in *env)
 	new_room->coo1 = env->tmp_coo1;
 	new_room->coo2 = env->tmp_coo2;
 	new_room->pass = 0;
+	new_room->path = NULL;
 	if (env->t_start == 1)
 	{
 		env->start = new_room;
