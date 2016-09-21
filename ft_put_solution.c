@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:50:06 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/20 18:39:42 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/21 14:07:00 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,48 @@ char			**ft_init_tabpath(t_lem_in *env, char **tab, int i, int *len)
 	return (tab);
 }
 
-void			ft_put_solution(t_lem_in *env, int frm_d, int frm_a)
+void			ft_put_solution(t_lem_in *env, int frm_d, int frm_a, int frm_p)
 {
 	int			total;
 	int			i;
 	int			len;
 	char		**tab;
+	int			tmp;
 
 	tab = NULL;
 	len = 0;
+	tmp = 0;
 	tab = ft_init_tabpath(env, tab, 0, &len);
 
 	total = env->nb_ant;
 	while (frm_a != env->nb_ant)
 	{
 		i = 0;
-		while (i < frm_a - frm_d)
+		if (frm_p < env->nb_ant)
+			frm_p += env->nb_path;
+		while (i < frm_p)
 		{
 			i++;
 			// ft_printf("\n%d, %d\n", frm_a, frm_d);
-			ft_printf("L%d-%s ", i, tab[frm_a - frm_d - 1 - (i - 1)]);
-			if (frm_a - frm_d - 1 == len)
-				frm_a++;
+			if (tab[frm_p - frm_a - i])
+			{
+				ft_printf("L%d-%s ", i, tab[frm_p - frm_a - i]);
+				ft_printf("%d, %d, %d, %d\n", frm_p, frm_a, i, frm_p - frm_a - i);
+			}
+			if (frm_p - frm_a - i + 1 == len && frm_a < env->nb_ant)
+				tmp++;
 		}
-		frm_d++;
-		ft_printf("frm_d : %d\n", frm_d);
+		while (tmp > 0)
+		{
+			frm_a++;
+			tmp--;
+		}
+		// if (frm_p - frm_a - i + 1 == len && frm_a < env->nb_ant)
+		// {
+		// 	frm_p--;
+		// }	
+		frm_d--;
+		ft_printf("\n");
 	}
 
 	// while (frm >= 0)
