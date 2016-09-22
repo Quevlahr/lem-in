@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/18 18:37:18 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/19 11:34:34 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/22 18:44:30 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,25 @@ void			ft_put_lem_in(t_lem_in *env)
 			break ;
 		env->room = env->room->next;
 	}
+}
+
+void			free_all(t_lem_in **env)
+{
+	t_room		*tmp;
+
+	(*env)->room = (*env)->start;
+	while ((*env)->room)
+	{
+		tmp = (*env)->room->next;
+		ft_strdel(&(*env)->room->name);
+		free((*env)->room->doors);
+		(*env)->room->doors = NULL;
+		free((*env)->room);
+		(*env)->room = tmp;
+		if (!(*env)->room->next)
+			break ;
+	}
+	free((*env)->room);
+	ft_strdel(&(*env)->tmp_name);
+	ft_strdel(&(*env)->file);
 }

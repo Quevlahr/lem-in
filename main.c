@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/21 12:03:18 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/22 18:50:06 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ int				ft_check_path(char *file, t_lem_in **env, int i)
 			}
 			(*env)->room = (*env)->room->begin;
 		}
+		ft_strdel(&str1);
+		ft_strdel(&str2);
 	}
 	return (0);
 }
@@ -138,7 +140,8 @@ int				main(void)
 	ft_printf("%s\n", env->file);
 	ft_resolution(env);
 	ft_put_solution(env, env->nb_ant, 0, 0);
-	// ft_solve(env, env->start, &nb);
+	free_all(&env);
+	free(env);
 	// ft_put_lem_in(env);
 	return (0);
 }

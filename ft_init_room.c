@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 15:29:12 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/15 18:41:34 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/22 18:55:01 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,16 @@ int				ft_verif_room(int j, int *i, char *file, t_lem_in *env)
 
 int				ft_hashtag(int j, int *i, char *file, t_lem_in *env)
 {
+	char		*tmp;
+
+	tmp = NULL;
 	if (file[(*i)] == '#' && (*i)++)
 	{
 		env->tmp = 0;
 		while (file[*i] != '\0' && file[*i] != '\n' && (*i)++)
 			env->tmp++;
-		if (ft_strcmp(ft_strsub(file, (*i) - env->tmp, env->tmp), "start") == 0 && env->t_start == 0)
+		tmp = ft_strsub(file, (*i) - env->tmp, env->tmp);
+		if (ft_strcmp(tmp, "start") == 0 && env->t_start == 0)
 		{
 			env->t_start = 1;
 			(*i)++;
@@ -87,7 +91,7 @@ int				ft_hashtag(int j, int *i, char *file, t_lem_in *env)
 			if (ft_verif_room(j, i, file, env) == 0)
 				ft_error_lem_in("La salle start n'es pas au bon format");
 		}
-		else if (ft_strcmp(ft_strsub(file, (*i) - env->tmp, env->tmp), "end") == 0 && env->t_end == 0)
+		else if (ft_strcmp(tmp, "end") == 0 && env->t_end == 0)
 		{
 			env->t_end = 1;
 			(*i)++;
@@ -97,6 +101,7 @@ int				ft_hashtag(int j, int *i, char *file, t_lem_in *env)
 		}
 		else
 			(*i)++;
+		ft_strdel(&tmp);
 	}
 	else
 	{
