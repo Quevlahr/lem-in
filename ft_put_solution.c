@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:50:06 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/22 19:13:43 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/22 21:22:33 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,12 @@ t_ant			**ft_init_tabpath(t_lem_in *env, t_ant **tab, int i, int *len)
 	while (env->room)
 	{
 		tab[i]->name = ft_strdup(env->room->name);
+		tab[i]->num = 0;
 		i++;
 		if (env->room->path == NULL)
 			break ;
 		env->room = env->room->path;
 	}
-
-	// int i = 0;
-	// while (tab[i])
-	// {
-	// 	ft_printf("%s\n", tab[i++]);
-	// }
-
 	return (tab);
 }
 
@@ -59,21 +53,18 @@ void			ft_put_solution(t_lem_in *env, int frm_d, int frm_a, int frm_p)
 	tab = ft_init_tabpath(env, tab, 0, &len);
 	while (i < len)
 	{
-		// ft_printf("%d, %s\n", tab[i]->num, tab[i]->name);
+		ft_printf("%d, %s\n", tab[i]->num, tab[i]->name);
+		i++;
+	}
+
+	i = 0;
+	while (i < len)
+	{
 		ft_strdel(&tab[i]->name);
 		free(tab[i]);
 		i++;
 	}
 	free(tab);
-	// while (frm_a != env->nb_ant)
-	// {
-	// 	while (tab[i])
-	// 	{
-
-	// 	}
-	// }
-
-
 
 
 
