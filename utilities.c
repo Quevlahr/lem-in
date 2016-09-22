@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/18 18:37:18 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/22 18:44:30 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/22 21:04:14 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,36 @@ void			ft_put_lem_in(t_lem_in *env)
 
 void			free_all(t_lem_in **env)
 {
+	int			i;
 	t_room		*tmp;
 
-	(*env)->room = (*env)->start;
+	(*env)->room = (*env)->room->begin;
 	while ((*env)->room)
 	{
+		i = 0;
 		tmp = (*env)->room->next;
 		ft_strdel(&(*env)->room->name);
+		while (i < (*env)->nb_room)
+		{
+			if ((*env)->room->doors[i] != NULL)
+				(*env)->room->doors[i] = NULL;
+			free((*env)->room->doors[i]);
+			i++;
+		}
 		free((*env)->room->doors);
-		(*env)->room->doors = NULL;
 		free((*env)->room);
 		(*env)->room = tmp;
-		if (!(*env)->room->next)
-			break ;
 	}
-	free((*env)->room);
 	ft_strdel(&(*env)->tmp_name);
 	ft_strdel(&(*env)->file);
 }
+
+
+
+
+
+
+
+
+
+

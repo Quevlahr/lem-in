@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:50:06 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/22 17:35:35 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/22 19:13:43 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,11 @@ void			ft_put_solution(t_lem_in *env, int frm_d, int frm_a, int frm_p)
 	while (i < len)
 	{
 		// ft_printf("%d, %s\n", tab[i]->num, tab[i]->name);
+		ft_strdel(&tab[i]->name);
+		free(tab[i]);
 		i++;
 	}
+	free(tab);
 	// while (frm_a != env->nb_ant)
 	// {
 	// 	while (tab[i])
