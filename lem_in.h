@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:40:54 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/22 17:44:14 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/26 11:45:51 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@
 # include "fcntl.h"
 # include "libft/libft.h"
 
-typedef struct		s_ant
-{
-	int				num;
-	char			*name;
-}					t_ant;
-
 typedef struct		s_room
 {
 	char			*name;
@@ -31,6 +25,7 @@ typedef struct		s_room
 	int				coo2;
 	int				id;
 	int				pass;
+	int				ant;
 	struct s_room	*next;
 	struct s_room	*begin;
 	struct s_room	*path;
@@ -62,7 +57,7 @@ int					ft_len_room(t_room *room);
 int					ft_check_room(char *file, t_lem_in **env);
 int					ft_hashtag(int j, int *i, char *file, t_lem_in *env);
 int					ft_resolution(t_lem_in *env);
-void				ft_put_solution(t_lem_in *env, int frm_d, int frm_a, int frm_p);
+void				ft_put_solution(t_lem_in *env);
 void				free_all(t_lem_in **env);
 
 void				ft_put_lem_in(t_lem_in *env);
