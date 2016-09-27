@@ -6,36 +6,11 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 19:08:06 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/20 14:49:10 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/27 15:41:29 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-// int				ft_solve(t_lem_in *env, t_room *start, int *nb)
-// {
-// 	int			i;
-
-// 	i = 0;
-// 	start->pass = 1;
-// 	while (start->doors[i])
-// 	{
-// 		if (start->doors[i]->id == 1)
-// 			return (1);
-// 		i++;
-// 	}
-// 	i = 0;
-// 	while (start->doors[i])
-// 	{
-// 		if (start->doors[i]->pass == 0)
-// 		{
-// 			if (ft_solve(env, start->doors[i], nb))
-// 				return (1);
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
 
 int				ft_solve(t_lem_in *env, t_room *start, int *nb)
 {
@@ -103,14 +78,14 @@ int				ft_resolution(t_lem_in *env)
 
 
 	ft_solve(env, env->start, &nb);
-	env->room = env->start;
-	while (env->room)
-	{
-		ft_printf("path : %s\n", env->room->name);
-		if (env->room->path == NULL)
-			break ;
-		env->room = env->room->path;
-	}
+	// env->room = env->start;
+	// while (env->room)
+	// {
+	// 	ft_printf("path : %s\n", env->room->name);
+	// 	if (env->room->path == NULL)
+	// 		break ;
+	// 	env->room = env->room->path;
+	// }
 
 	return (0);
 }
