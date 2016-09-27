@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:50:06 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/27 15:38:19 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/27 16:40:11 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char			*ft_record(char *tab, int num, char *name)
 
 void			ft_put_solution(t_lem_in *env)
 {
+	int			test = 0;
+
 	int			num;
 	char		*tab;
 	t_room		*tmp;
@@ -68,15 +70,22 @@ void			ft_put_solution(t_lem_in *env)
 	num = 1;
 	fake1 = NULL;
 	tab = NULL;
-	while (env->end->ant < env->nb_ant)
+	while (env->end->ant + 1 < env->nb_ant)
 	{
+		if (test > 10)
+		{
+			ft_printf("env %d\n", env->end->ant);
+			break ;
+		}
+		test++;
+
 		tmp = env->start->path;
 		fake2 = NULL;
 		if (tab != NULL)
 			ft_strdel(&tab);
 
 		fake1 = tmp->h_ant;
-		if (num - 1 <= env->start->ant)
+		if (num <= env->start->ant)
 			tmp->h_ant = ft_new_ant(num++, &tmp);
 		else
 			tmp->h_ant = NULL;
@@ -94,6 +103,7 @@ void			ft_put_solution(t_lem_in *env)
 				break ;
 			tmp = tmp->path;
 		}
+
 		if (tmp->id == env->end->id && fake1 != NULL)
 			tmp->ant += 1;
 		tmp = env->start->path;
