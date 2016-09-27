@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:50:06 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/26 18:55:34 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/27 12:10:23 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,83 +64,39 @@ void			ft_put_solution(t_lem_in *env)
 	
 
 		fake1 = tmp->h_ant;
-		tmp->h_ant = ft_new_ant(num++, &tmp);
+		if (num - 1 <= env->start->ant)
+			tmp->h_ant = ft_new_ant(num++, &tmp);
+		else
+			tmp->h_ant = NULL;
 		tmp = tmp->path;
-	
 
-		while (tmp && tmp->h_ant != NULL)
+		while (tmp)
 		{
-			ft_printf("name %s, num %d\n", tmp->name, tmp->h_ant->num);
-			if (fake2 == NULL)
-			{
-				fake1 = tmp->h_ant;
-				tmp->h_ant = fake1;
-			}
+			if (tmp->id == env->end->id && tmp->h_ant != NULL)
+				free(tmp->h_ant);
 			else
-				tmp->h_ant = fake2;
+				fake2 = tmp->h_ant;
+			tmp->h_ant = fake1;
+			fake1 = fake2;
 			if (tmp->path == NULL)
 				break ;
 			tmp = tmp->path;
-			fake2 = tmp->h_ant;
-			tmp->h_ant = fake1;
 		}
-		if (tmp->id == env->end->id)
-		{
-			ft_printf("AQUI\n");
+		if (tmp->id == env->end->id && fake1 != NULL)
 			tmp->ant += 1;
-			tmp->h_ant->room = NULL;
-			free(tmp->h_ant);
-			tmp->h_ant = NULL;
-		}
-		tmp = env->start->path;
-		if (tmp->h_ant == NULL)
-			tmp->h_ant = ft_new_ant(num++, &tmp);
 		tmp = env->start->path;
 		while (tmp)
 		{
 			if (tmp->h_ant != NULL)
 				ft_printf("L%d-%s ", tmp->h_ant->num, tmp->name);
 			if (tmp->path == NULL)
-			{
-				tmp->ant += 1;
 				break ;
-			}
 			tmp = tmp->path;
 		}
 		ft_printf("\n");
 	}
-
-
-
-
-
-
-
-
-
-	// int			i;
-	// int			len;
-	// t_ant		**tab;
-
-	// i = 0;
-	// len = 0;
-	// tab = NULL;
-	// tab = ft_init_tabpath(env, tab, 0, &len);
-	// while (i < len)
-	// {
-	// 	ft_printf("%d, %s\n", tab[i]->num, tab[i]->room->name);
-	// 	i++;
-	// }
-
-	// i = 0;
-	// while (i < len)
-	// {
-	// 	tab[i]->room = NULL;
-	// 	// ft_strdel(&tab[i]->name);
-	// 	free(tab[i]);
-	// 	i++;
-	// }
-	// free(tab);
+	free(env->end->h_ant);
+	env->end->h_ant = NULL;
 }
 
 
