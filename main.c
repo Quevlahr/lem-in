@@ -6,31 +6,11 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/27 16:11:56 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/28 16:55:12 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-void			ft_get_file(char **file)
-{
-	int			fd;
-	char		*buf;
-	char		*tmp;
-
-	buf = ft_strnew(BUFF_READ);
-	*file = ft_strnew(0);
-	fd = 0;
-	while (read(fd, buf, BUFF_READ) > 0)
-	{
-		tmp = *file;
-		*file = ft_strjoin(tmp, buf);
-		ft_strdel(&tmp);
-		ft_strdel(&buf);
-		buf = ft_strnew(BUFF_READ);
-	}
-	ft_strdel(&buf);
-}
 
 int				ft_nb_ants(char *file, t_lem_in **env)
 {
@@ -134,7 +114,7 @@ int				main(void)
 	env->t_end = 0;
 	env->file = NULL;
 
-	ft_get_file(&(env->file));
+	ft_get_file(&(env->file), env, 0);
 	env->nb_ant = ft_nb_ants(env->file, &env);
 	ft_check_path(env->file, &env, ft_check_room(env->file, &env));
 	ft_printf("%s\n", env->file);

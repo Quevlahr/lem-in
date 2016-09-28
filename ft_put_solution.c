@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:50:06 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/27 16:40:11 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/28 16:26:18 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ char			*ft_record(char *tab, int num, char *name)
 
 void			ft_put_solution(t_lem_in *env)
 {
-	int			test = 0;
-
 	int			num;
+	int			verif;
 	char		*tab;
 	t_room		*tmp;
 	t_ant		*fake1;
@@ -70,15 +69,9 @@ void			ft_put_solution(t_lem_in *env)
 	num = 1;
 	fake1 = NULL;
 	tab = NULL;
+	verif = 0;
 	while (env->end->ant + 1 < env->nb_ant)
 	{
-		if (test > 10)
-		{
-			ft_printf("env %d\n", env->end->ant);
-			break ;
-		}
-		test++;
-
 		tmp = env->start->path;
 		fake2 = NULL;
 		if (tab != NULL)
@@ -94,7 +87,10 @@ void			ft_put_solution(t_lem_in *env)
 		while (tmp)
 		{
 			if (tmp->id == env->end->id && tmp->h_ant != NULL)
+			{
+				verif = 1;
 				free(tmp->h_ant);
+			}
 			else
 				fake2 = tmp->h_ant;
 			tmp->h_ant = fake1;
@@ -104,8 +100,11 @@ void			ft_put_solution(t_lem_in *env)
 			tmp = tmp->path;
 		}
 
-		if (tmp->id == env->end->id && fake1 != NULL)
+		if (tmp->id == env->end->id && verif != 0)
+		{
+			verif = 0;
 			tmp->ant += 1;
+		}
 		tmp = env->start->path;
 		while (tmp)
 		{

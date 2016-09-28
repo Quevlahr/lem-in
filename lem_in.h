@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:40:54 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/26 15:10:59 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/28 16:56:47 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,19 @@ typedef struct		s_lem_in
 }					t_lem_in;
 
 void				ft_error_lem_in(char *str);
-void				ft_push_room(t_lem_in *env);
-int					ft_len_room(t_room *room);
-int					ft_check_room(char *file, t_lem_in **env);
-int					ft_hashtag(int j, int *i, char *file, t_lem_in *env);
-int					ft_resolution(t_lem_in *env);
-void				ft_put_solution(t_lem_in *env);
+void				ft_put_lem_in(t_lem_in *env);
 void				free_all(t_lem_in **env);
 
-void				ft_put_lem_in(t_lem_in *env);
+int					ft_check_room(char *file, t_lem_in **env);
+int					ft_hashtag(int j, int *i, char *file, t_lem_in *env);
+
+int					ft_len_room(t_room *room);
+void				ft_push_room(t_lem_in *env);
+
+int					ft_resolution(t_lem_in *env);
+
+void				ft_put_solution(t_lem_in *env);
+void				ft_get_file(char **file, t_lem_in *env, int verif);
+
 
 #endif
