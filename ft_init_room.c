@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 15:29:12 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/22 20:24:37 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/28 19:10:15 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int				ft_hashtag(int j, int *i, char *file, t_lem_in *env)
 			(*i)++;
 			j += 8;
 			if (ft_verif_room(j, i, file, env) == 0)
-				ft_error_lem_in("La salle start n'es pas au bon format");
+				ft_error_lem_in("La salle start n'es pas au bon format", env);
 		}
 		else if (ft_strcmp(tmp, "end") == 0 && env->t_end == 0)
 		{
@@ -97,7 +97,7 @@ int				ft_hashtag(int j, int *i, char *file, t_lem_in *env)
 			(*i)++;
 			j += 6;
 			if (ft_verif_room(j, i, file, env) == 0)
-				ft_error_lem_in("La salle end n'es pas au bon format");
+				ft_error_lem_in("La salle end n'es pas au bon format", env);
 		}
 		else
 			(*i)++;
@@ -125,14 +125,14 @@ int				ft_check_room(char *file, t_lem_in **env)
 		if (file[i] == '#' && i++)
 			ft_hashtag(j, &i, file, *env);
 		else if (file[i] == 'L')
-			ft_error_lem_in("Une salle commence par la lettre 'L'");
+			ft_error_lem_in("Une salle commence par la lettre 'L'", *env);
 		else if (ft_verif_room(j, &i, file, *env) == 0)
 			break ;
 	}
 	if ((*env)->t_start == 0)
-		ft_error_lem_in("Il manque une salle start");
+		ft_error_lem_in("Il manque une salle start", *env);
 	else if ((*env)->t_end == 0)
-		ft_error_lem_in("Il manque une salle end");
+		ft_error_lem_in("Il manque une salle end", *env);
 	ft_init_doors(*env);
 	return (j - 1);
 }

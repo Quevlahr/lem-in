@@ -6,14 +6,16 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/18 18:37:18 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/28 16:37:32 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/28 19:10:48 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void			ft_error_lem_in(char *str)
+void			ft_error_lem_in(char *str, t_lem_in *env)
 {
+	ft_strdel(&env->file);
+	free(env);
 	if (str != NULL)
 		ft_printf("%s\n", str);
 	else

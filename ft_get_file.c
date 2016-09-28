@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 16:55:03 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/28 19:00:39 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/09/28 19:08:23 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ void			ft_verif_begin(char *file, t_lem_in *env, int *verif)
 			(*verif) = 0;
 			i++;
 			if (ft_hashtag_bis(0, &i, file, env) > 0)
-				ft_error_lem_in(NULL);
+				ft_error_lem_in(NULL, env);
 			i--;
 		}
 		else if (ft_isdigit(file[i]) == 0)
 		{
 			(*verif)++;
-			ft_error_lem_in(NULL);
+			ft_error_lem_in(NULL, env);
 		}
 		i++;
 	}
