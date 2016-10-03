@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 16:55:03 by quroulon          #+#    #+#             */
-/*   Updated: 2016/09/28 19:08:23 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/03 16:12:31 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,30 @@ void			ft_verif_begin(char *file, t_lem_in *env, int *verif)
 
 	i = 0;
 	j = 0;
-	while (file[i] || file[i] != '\n')
+	(*verif)++;
+	while (file[i] && file[i] != '\n')
 	{
 		if (file[i] == '#')
 		{
-			(*verif) = 0;
-			i++;
-			if (ft_hashtag_bis(0, &i, file, env) > 0)
+			while (file[i] != EOF && file[i] != '\n')
+				i++;
+			if (file[i] == '\n')
+				i++;
+			else
 				ft_error_lem_in(NULL, env);
-			i--;
+
+			// (*verif) = 0;
+			// i++;
+			// if (ft_hashtag_bis(0, &i, file, env) > 0)
+			// 	ft_error_lem_in(NULL, env);
+			// i--;
 		}
-		else if (ft_isdigit(file[i]) == 0)
-		{
-			(*verif)++;
+		else if (ft_isdigit(file[i]) == 1)
+			i++;
+		else if (file[i] == '\n')
+			break ;
+		else if (ft_isdigit(file[i]) == 0 && file[i] != '\n')
 			ft_error_lem_in(NULL, env);
-		}
-		i++;
 	}
 }
 
