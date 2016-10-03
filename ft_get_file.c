@@ -6,46 +6,88 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 16:55:03 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/03 16:12:31 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/03 20:39:29 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int				ft_hashtag_bis(int j, int *i, char *file, t_lem_in *env)
+void			ft_sort_file(char **file, t_lem_in *env)
 {
-	char		*tmp;
+	int			i;
+	int			j;
+	int			cpt;
+	int			lol;
+	char		**tab;
 
-	tmp = NULL;
-	if (file[(*i)] == '#' && (*i)++)
+	i = 0;
+	j = 0;
+	lol = 0;
+	tab = ft_strsplit(*file, '\n');
+	while (tab[i])
 	{
-		env->tmp = 0;
-		while (file[*i] != '\0' && file[*i] != '\n' && (*i)++)
-			env->tmp++;
-		tmp = ft_strsub(file, (*i) - env->tmp, env->tmp);
-		if (ft_strcmp(tmp, "start") == 0 && env->t_start == 0)
+		cpt = 0;
+		j = 0;
+		while (tab[i][j] && tab[i][0] != '#')
 		{
-			env->t_start = 1;
-			(*i)++;
+			if (tab[i][j] == ' ')
+			{
+				j++;
+				if (tab[i][j] == '\0' || ft_isdigit(tab[i][j]) == 0)
+				{
+					ft_printf("Le fichier est mal écrit ligne %d", i + 1);
+					i = 0;
+					while (tab[i])
+					{
+						ft_strdel(&tab[i]);
+						i++;
+					}
+					free(tab);
+					ft_error_lem_in("\0", env);
+				}
+				cpt++;
+			}
+			// if (lol > 0 && tab[i][j] == '-')
 			j++;
 		}
-		else if (ft_strcmp(tmp, "end") == 0 && env->t_end == 0)
+		if (cpt == 0 && tab[i][0] != '#' && i != 0)
+			lol++;
+		// if (cpt != 0 && cpt != 2)
+		// {
+		// 	ft_printf("Le fichier est mal formaté ligne %d", i + 1);
+		// 	i = 0;
+		// 	while (tab[i])
+		// 	{
+		// 		ft_strdel(&tab[i]);
+		// 		i++;
+		// 	}
+		// 	free(tab);
+		// 	ft_error_lem_in("\0", env);
+		// }
+		if (cpt != 2 && tab[i][0] != '#' && i != 0 && lol == 0)
 		{
-			env->t_end = 1;
-			(*i)++;
-			j++;
+			i = 0;
+			while (tab[i])
+			{
+				ft_strdel(&tab[i]);
+				i++;
+			}
+			free(tab);
+			ft_error_lem_in(NULL, env);
 		}
-		else
-			(*i)++;
-		ft_strdel(&tmp);
+		else if (cpt != 0 && tab[i][0] != '#' && lol > 0)
+		{
+			i = 0;
+			while (tab[i])
+			{
+				ft_strdel(&tab[i]);
+				i++;
+			}
+			free(tab);
+			ft_error_lem_in(NULL, env);
+		}
+		i++;
 	}
-	else
-	{
-		while (file[*i] != '\0' && file[*i] != '\n')
-			(*i)++;
-		(*i)++;
-	}
-	return (j);
 }
 
 void			ft_verif_begin(char *file, t_lem_in *env, int *verif)
@@ -104,4 +146,41 @@ void			ft_get_file(char **file, t_lem_in *env, int verif)
 		buf = ft_strnew(BUFF_READ);
 	}
 	ft_strdel(&buf);
+	ft_sort_file(file, env);
 }
+
+// int				ft_hashtag_bis(int j, int *i, char *file, t_lem_in *env)
+// {
+// 	char		*tmp;
+
+// 	tmp = NULL;
+// 	if (file[(*i)] == '#' && (*i)++)
+// 	{
+// 		env->tmp = 0;
+// 		while (file[*i] != '\0' && file[*i] != '\n' && (*i)++)
+// 			env->tmp++;
+// 		tmp = ft_strsub(file, (*i) - env->tmp, env->tmp);
+// 		if (ft_strcmp(tmp, "start") == 0 && env->t_start == 0)
+// 		{
+// 			env->t_start = 1;
+// 			(*i)++;
+// 			j++;
+// 		}
+// 		else if (ft_strcmp(tmp, "end") == 0 && env->t_end == 0)
+// 		{
+// 			env->t_end = 1;
+// 			(*i)++;
+// 			j++;
+// 		}
+// 		else
+// 			(*i)++;
+// 		ft_strdel(&tmp);
+// 	}
+// 	else
+// 	{
+// 		while (file[*i] != '\0' && file[*i] != '\n')
+// 			(*i)++;
+// 		(*i)++;
+// 	}
+// 	return (j);
+// }

@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/03 15:39:33 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/03 16:49:03 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,13 @@ int				main(void)
 	env->file = NULL;
 
 	ft_get_file(&(env->file), env, 0);
+	ft_printf("GET FILE\n");
 	env->nb_ant = ft_nb_ants(env->file, &env);
 	ft_check_path(env->file, &env, ft_check_room(env->file, &env));
-	ft_printf("%s\n", env->file);
+	ft_printf("GET ROOM\n");
+	// ft_printf("%s\n", env->file);
 	ft_resolution(env);
+	ft_printf("GET PATH\n");
 	ft_printf("\n");
 	ft_put_solution(env);
 	free_all(&env);
