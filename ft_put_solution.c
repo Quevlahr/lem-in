@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:50:06 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/03 15:39:10 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/05 19:00:47 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void			ft_put_solution(t_lem_in *env)
 			tmp->h_ant = ft_new_ant(num++, &tmp);
 		else
 			tmp->h_ant = NULL;
-		tmp = tmp->path;
+		if (tmp->path)
+			tmp = tmp->path;
 
 		while (tmp)
 		{
@@ -120,3 +121,48 @@ void			ft_put_solution(t_lem_in *env)
 	env->end->h_ant = NULL;
 	ft_strdel(&tab);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

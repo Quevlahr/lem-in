@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/05 13:09:43 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/05 19:01:03 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,19 @@ int				ft_check_path(char *file, t_lem_in **env, int i)
 	return (0);
 }
 
+void			ft_putsmall_solution(t_lem_in *env)
+{
+	int			num;
+
+	num = 1;
+	while (num - 1 != env->nb_ant)
+	{
+		ft_printf("L%d-%s\n", num, env->start->path->name);
+		num++;
+	}
+
+}
+
 int				main(void)
 {
 	t_lem_in	*env;
@@ -115,15 +128,17 @@ int				main(void)
 	env->file = NULL;
 
 	ft_get_file(&(env->file), env, 0);
-	ft_printf("GET FILE\n");
+	// ft_printf("GET FILE\n");
 	env->nb_ant = ft_nb_ants(env->file, &env);
 	ft_check_path(env->file, &env, ft_check_room(env->file, &env));
-	ft_printf("GET ROOM\n");
-	ft_printf("%s\n", env->file);
+	// ft_printf("GET ROOM\n");
+	ft_printf("%s\n\n", env->file);
 	ft_resolution(env);
-	ft_printf("GET PATH\n");
-	ft_printf("\n");
-	ft_put_solution(env);
+	// ft_printf("GET PATH\n");
+	if (env->nb_path > 1)
+		ft_put_solution(env);
+	else
+		ft_putsmall_solution(env);
 	free_all(&env);
 	free(env);
 	// ft_put_lem_in(env);
