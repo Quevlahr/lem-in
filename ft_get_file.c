@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 16:55:03 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/05 17:04:34 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/06 20:25:37 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,21 @@ void			ft_get_file(char **file, t_lem_in *env, int verif)
 	ft_strdel(&buf);
 	ft_file_empty_line(file);
 	ft_sort_file(file, env);
+}
+
+void			ft_get_file(t_lem_in *env)
+{
+	int			i;
+	char		*line;
+
+	i = 0;
+	line = NULL;
+	while ((i = get_next_line(0, &line)) > 0)
+	{
+		if (env->file == NULL)
+			env->file = ft_strnew(ft_strlen(line));
+		env->file
+	}
 }
 
 // int				ft_hashtag_bis(int j, int *i, char *file, t_lem_in *env)

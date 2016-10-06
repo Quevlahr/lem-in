@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 19:08:06 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/05 18:36:58 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/06 18:26:10 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,11 @@ int				ft_resolution(t_lem_in *env)
 	env->tmp = env->nb_room;
 	ft_solve(env, env->start, &nb);
 	// ft_printf("name : %s\n", env->end->name);
+	nb = 0;
 	env->room = env->start;
 	while (env->room)
 	{
+		nb++;
 		ft_printf("path : %s\n", env->room->name);
 		if (env->room->path == NULL)
 			break ;
@@ -82,6 +84,6 @@ int				ft_resolution(t_lem_in *env)
 	}
 	if (env->room->id != env->end->id)
 		ft_error_lem_in("Il n'y pas de chemin vers la fin", env);
-
+	env->nb_path = nb - 1;
 	return (0);
 }
