@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 16:55:03 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/07 16:07:43 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/07 21:20:38 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,76 @@ void			ft_sort_file(char **file, t_lem_in *env)
 // 	ft_sort_file(file, env);
 // }
 
+void			ft_thd_part(char *line, t_lem_in *env)
+{
+	if (line[0] == 'L')
+		ft_error_lem_in(NULL, env);
+}
+
+void			ft_scd_part(char *line, t_lem_in *env)
+{
+	int			i;
+
+	i = 0;
+	if (line[0] == 'L')
+		ft_error_lem_in(NULL, env);
+	while (line[i])
+	{
+		if (line[i] == '-')
+		{
+			env->thd_part = 1;
+			return ;
+		}
+		if (line[i++] == ' ')
+		{
+		ft_printf("TDFYGHU\n");
+			while (ft_isdigit(line[i]) == 1)
+				i++;
+			if (line[i++] != ' ')
+				ft_error_lem_in(NULL, env);
+			while (ft_isdigit(line[i]) == 1)
+				i++;
+			if (line[i] != '\0')
+				ft_error_lem_in(NULL, env);
+		}
+		i++;
+	}
+}
+
+void			ft_fst_part(char *line, t_lem_in *env)
+{
+	int			i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (ft_isdigit(line[i++]) == 0)
+			ft_error_lem_in(NULL, env);
+	}
+	env->fst_part = 1;
+	env->scd_part = 1;
+}
+
+int				ft_analyse(char *line, t_lem_in *env)
+{
+	if (line[0] == '\0' && env->thd_part == 0)
+		ft_error_lem_in(NULL, env);
+	else if (line[0] == '\0' && env->thd_part == 1)
+		return (0);
+	if (line[0] == '#')
+		 return (1);
+	ft_printf("%s\n", line);
+	if (env->fst_part == 0)
+		ft_fst_part(line, env);	
+	else if (env->scd_part == 1 && env->thd_part == 0)
+		ft_scd_part(line, env);
+	else if (env->thd_part == 1)
+		ft_thd_part(line, env);
+	else
+		return (0);
+	return (1);
+}
+
 void			ft_get_file(char **file, t_lem_in *env)
 {
 	int			i;
@@ -180,10 +250,15 @@ void			ft_get_file(char **file, t_lem_in *env)
 	i = 0;
 	line = NULL;
 	tmp = NULL;
-	while ((i = get_next_line(0, &line)) > 0)
+	while (get_next_line(0, &line) > 0 && i == 0)
 	{
 		if (*file == NULL)
 			*file = ft_strnew(0);
+		if (ft_analyse(line, env) == 0)
+		{
+			ft_printf("COUCOU\n");
+			i = 1;
+		}
 		tmp = *file;
 		*file = ft_strjoin(tmp, line);
 		ft_strdel(&tmp);
@@ -193,42 +268,4 @@ void			ft_get_file(char **file, t_lem_in *env)
 		ft_strdel(&tmp);
 	}
 	ft_strdel(&line);
-
-	env->nb_ant = 0;
 }
-
-// int				ft_hashtag_bis(int j, int *i, char *file, t_lem_in *env)
-// {
-// 	char		*tmp;
-
-// 	tmp = NULL;
-// 	if (file[(*i)] == '#' && (*i)++)
-// 	{
-// 		env->tmp = 0;
-// 		while (file[*i] != '\0' && file[*i] != '\n' && (*i)++)
-// 			env->tmp++;
-// 		tmp = ft_strsub(file, (*i) - env->tmp, env->tmp);
-// 		if (ft_strcmp(tmp, "start") == 0 && env->t_start == 0)
-// 		{
-// 			env->t_start = 1;
-// 			(*i)++;
-// 			j++;
-// 		}
-// 		else if (ft_strcmp(tmp, "end") == 0 && env->t_end == 0)
-// 		{
-// 			env->t_end = 1;
-// 			(*i)++;
-// 			j++;
-// 		}
-// 		else
-// 			(*i)++;
-// 		ft_strdel(&tmp);
-// 	}
-// 	else
-// 	{
-// 		while (file[*i] != '\0' && file[*i] != '\n')
-// 			(*i)++;
-// 		(*i)++;
-// 	}
-// 	return (j);
-// }

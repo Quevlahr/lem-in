@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:40:54 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/07 15:53:12 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/07 18:17:38 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ typedef struct		s_lem_in
 {
 	int				tmp;
 	int				i;
+	int				fst_part;
+	int				scd_part;
+	int				thd_part;
 	int				nb_ant;
 	int				nb_room;
 	int				tmp_coo1;
