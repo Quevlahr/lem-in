@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:40:54 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/06 20:25:21 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/07 15:53:12 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int					ft_resolution(t_lem_in *env);
 
 void				ft_put_solution(t_lem_in *env);
 // void				ft_get_file(char **file, t_lem_in *env, int verif);
-void				ft_get_file(t_lem_in *env);
+void				ft_get_file(char **file, t_lem_in *env);
 
 int					ft_hash(char *word);
 

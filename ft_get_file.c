@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 16:55:03 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/07 12:10:38 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/07 16:07:43 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void			ft_sort_file(char **file, t_lem_in *env)
 // 	ft_sort_file(file, env);
 // }
 
-void			ft_get_file(t_lem_in *env)
+void			ft_get_file(char **file, t_lem_in *env)
 {
 	int			i;
 	char		*line;
@@ -179,18 +179,22 @@ void			ft_get_file(t_lem_in *env)
 
 	i = 0;
 	line = NULL;
+	tmp = NULL;
 	while ((i = get_next_line(0, &line)) > 0)
 	{
-		tmp = env->file;
-		if (env->file == NULL)
-		{
-			env->file = line;
-		}
-		else
-			env->file = ft_strjoin(tmp, line);
+		if (*file == NULL)
+			*file = ft_strnew(0);
+		tmp = *file;
+		*file = ft_strjoin(tmp, line);
 		ft_strdel(&tmp);
 		ft_strdel(&line);
+		tmp = *file;
+		*file = ft_strjoin(tmp, "\n");
+		ft_strdel(&tmp);
 	}
+	ft_strdel(&line);
+
+	env->nb_ant = 0;
 }
 
 // int				ft_hashtag_bis(int j, int *i, char *file, t_lem_in *env)
