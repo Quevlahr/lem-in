@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 16:55:03 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/06 20:25:37 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/07 12:10:38 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,72 +117,79 @@ void			ft_sort_file(char **file, t_lem_in *env)
 	ft_dbstrdel(tab);
 }
 
-void			ft_verif_begin(char *file, t_lem_in *env, int *verif)
-{
-	int			i;
-	int			j;
+// void			ft_verif_begin(char *file, t_lem_in *env, int *verif)
+// {
+// 	int			i;
+// 	int			j;
 
-	i = 0;
-	j = 0;
-	(*verif)++;
-	while (file[i] && file[i] != '\n')
-	{
-		if (file[i] == '#')
-		{
-			while (file[i] != EOF && file[i] != '\n')
-				i++;
-			if (file[i] == '\n')
-				i++;
-			else
-				ft_error_lem_in(NULL, env);
-		}
-		else if (ft_isdigit(file[i]) == 1)
-			i++;
-		else if (file[i] == '\n')
-			break ;
-		else if (ft_isdigit(file[i]) == 0 && file[i] != '\n')
-			ft_error_lem_in(NULL, env);
-	}
-}
+// 	i = 0;
+// 	j = 0;
+// 	(*verif)++;
+// 	while (file[i] && file[i] != '\n')
+// 	{
+// 		if (file[i] == '#')
+// 		{
+// 			while (file[i] != EOF && file[i] != '\n')
+// 				i++;
+// 			if (file[i] == '\n')
+// 				i++;
+// 			else
+// 				ft_error_lem_in(NULL, env);
+// 		}
+// 		else if (ft_isdigit(file[i]) == 1)
+// 			i++;
+// 		else if (file[i] == '\n')
+// 			break ;
+// 		else if (ft_isdigit(file[i]) == 0 && file[i] != '\n')
+// 			ft_error_lem_in(NULL, env);
+// 	}
+// }
 
-void			ft_get_file(char **file, t_lem_in *env, int verif)
-{
-	int			fd;
-	char		*buf;
-	char		*tmp;
+// void			ft_get_file(char **file, t_lem_in *env, int verif)
+// {
+// 	int			fd;
+// 	char		*buf;
+// 	char		*tmp;
 
-	buf = ft_strnew(BUFF_READ);
-	*file = ft_strnew(0);
-	fd = 0;
-	while (read(fd, buf, BUFF_READ) > 0)
-	{
-		tmp = *file;
-		*file = ft_strjoin(tmp, buf);
-		ft_strdel(&tmp);
-		ft_strdel(&buf);
-		if (verif == 0)
-			ft_verif_begin(*file, env, &verif);
-		else
-			verif++;
-		buf = ft_strnew(BUFF_READ);
-	}
-	ft_strdel(&buf);
-	ft_file_empty_line(file);
-	ft_sort_file(file, env);
-}
+// 	buf = ft_strnew(BUFF_READ);
+// 	*file = ft_strnew(0);
+// 	fd = 0;
+// 	while (read(fd, buf, BUFF_READ) > 0)
+// 	{
+// 		tmp = *file;
+// 		*file = ft_strjoin(tmp, buf);
+// 		ft_strdel(&tmp);
+// 		ft_strdel(&buf);
+// 		if (verif == 0)
+// 			ft_verif_begin(*file, env, &verif);
+// 		else
+// 			verif++;
+// 		buf = ft_strnew(BUFF_READ);
+// 	}
+// 	ft_strdel(&buf);
+// 	ft_file_empty_line(file);
+// 	ft_sort_file(file, env);
+// }
 
 void			ft_get_file(t_lem_in *env)
 {
 	int			i;
 	char		*line;
+	char		*tmp;
 
 	i = 0;
 	line = NULL;
 	while ((i = get_next_line(0, &line)) > 0)
 	{
+		tmp = env->file;
 		if (env->file == NULL)
-			env->file = ft_strnew(ft_strlen(line));
-		env->file
+		{
+			env->file = line;
+		}
+		else
+			env->file = ft_strjoin(tmp, line);
+		ft_strdel(&tmp);
+		ft_strdel(&line);
 	}
 }
 
