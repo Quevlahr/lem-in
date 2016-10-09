@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:40:54 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/07 18:17:38 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/09 20:36:52 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct		s_lem_in
 }					t_lem_in;
 
 void				ft_error_lem_in(char *str, t_lem_in *env);
+void				ft_error_lem_in_start(char *str, t_lem_in *env);
 void				ft_put_lem_in(t_lem_in *env);
 void				free_all(t_lem_in **env);
 

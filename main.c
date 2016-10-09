@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/07 18:18:06 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/09 20:39:36 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int				main(void)
 	ft_printf("GET ROOM\n");
 	// ft_printf("%s\n\n", env->file);
 	ft_resolution(env);
-	ft_printf("GET PATH\n");
+	ft_printf("GET PATH%d\n", env->nb_ant);
 	if (env->nb_path == 1)
 		ft_putsmall_solution(env);
 	else

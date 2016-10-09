@@ -6,11 +6,22 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/18 18:37:18 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/05 13:09:17 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/09 20:35:56 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void			ft_error_lem_in_start(char *str, t_lem_in *env)
+{
+	ft_strdel(&env->file);
+	ft_strdel(&str);
+	if (env->room != NULL)
+		free_all(&env);
+	free(env);
+	ft_printf("ERROR\n");
+	exit(EXIT_FAILURE);
+}
 
 void			ft_error_lem_in(char *str, t_lem_in *env)
 {

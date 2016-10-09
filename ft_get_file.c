@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 16:55:03 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/07 21:20:38 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/09 20:36:32 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ void			ft_sort_file(char **file, t_lem_in *env)
 void			ft_thd_part(char *line, t_lem_in *env)
 {
 	if (line[0] == 'L')
-		ft_error_lem_in(NULL, env);
+		ft_error_lem_in_start(line, env);
 }
 
 void			ft_scd_part(char *line, t_lem_in *env)
@@ -183,7 +183,7 @@ void			ft_scd_part(char *line, t_lem_in *env)
 
 	i = 0;
 	if (line[0] == 'L')
-		ft_error_lem_in(NULL, env);
+		ft_error_lem_in_start(line, env);
 	while (line[i])
 	{
 		if (line[i] == '-')
@@ -191,20 +191,22 @@ void			ft_scd_part(char *line, t_lem_in *env)
 			env->thd_part = 1;
 			return ;
 		}
-		if (line[i++] == ' ')
+		if (line[i] == ' ')
 		{
-		ft_printf("TDFYGHU\n");
+			i++;
 			while (ft_isdigit(line[i]) == 1)
 				i++;
 			if (line[i++] != ' ')
-				ft_error_lem_in(NULL, env);
+				ft_error_lem_in_start(line, env);
 			while (ft_isdigit(line[i]) == 1)
 				i++;
 			if (line[i] != '\0')
-				ft_error_lem_in(NULL, env);
+				ft_error_lem_in_start(line, env);
+			return ;
 		}
 		i++;
 	}
+	ft_error_lem_in_start(line, env);
 }
 
 void			ft_fst_part(char *line, t_lem_in *env)
@@ -215,7 +217,7 @@ void			ft_fst_part(char *line, t_lem_in *env)
 	while (line[i])
 	{
 		if (ft_isdigit(line[i++]) == 0)
-			ft_error_lem_in(NULL, env);
+			ft_error_lem_in_start(line, env);
 	}
 	env->fst_part = 1;
 	env->scd_part = 1;
@@ -224,12 +226,11 @@ void			ft_fst_part(char *line, t_lem_in *env)
 int				ft_analyse(char *line, t_lem_in *env)
 {
 	if (line[0] == '\0' && env->thd_part == 0)
-		ft_error_lem_in(NULL, env);
+		ft_error_lem_in_start(line, env);
 	else if (line[0] == '\0' && env->thd_part == 1)
 		return (0);
 	if (line[0] == '#')
 		 return (1);
-	ft_printf("%s\n", line);
 	if (env->fst_part == 0)
 		ft_fst_part(line, env);	
 	else if (env->scd_part == 1 && env->thd_part == 0)
@@ -255,10 +256,7 @@ void			ft_get_file(char **file, t_lem_in *env)
 		if (*file == NULL)
 			*file = ft_strnew(0);
 		if (ft_analyse(line, env) == 0)
-		{
-			ft_printf("COUCOU\n");
 			i = 1;
-		}
 		tmp = *file;
 		*file = ft_strjoin(tmp, line);
 		ft_strdel(&tmp);
