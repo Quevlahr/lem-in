@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/10 12:58:19 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/10 19:40:17 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,15 @@ void			ft_nb_ants(char *file, t_lem_in **env)
 	{
 		i++;
 		ft_hashtag(i, &i, file, *env);
+		if ((*env)->t_start != 0 || (*env)->t_end != 0)
+			ft_error_lem_in(NULL, *env);
 	}
 	(*env)->nb_ant = ft_atoi(file + i);
+	while (ft_isdigit(file[i]) == 1)
+		i++;
+	(*env)->tmp = i;
 	if ((*env)->nb_ant <= 0)
 		ft_error_lem_in(NULL, (*env));
-
-	// while (ft_isdigit(file[i++]) == 1)
-	// 	j++;
-	// if (file[i] == '\n')
-	// {
-	// 	(*env)->tmp = i;
-	// 	return (ft_atoi(file + (i - j)));
-	// }
-	// else
-	// 	ft_error_lem_in("Le nombre de fourmis est manquant ou au mauvais format", *env);
-	// return (0);
 }
 
 int				ft_check_path(char *file, t_lem_in **env, int i)
@@ -135,14 +129,14 @@ int				main(void)
 	env = (t_lem_in*)malloc(sizeof (t_lem_in));
 	ft_init_env(env);
 	ft_get_file(&env->file, env);
-	ft_printf("GET FILE\n");
-
+	ft_printf("GET FILE\n\n");
 	ft_nb_ants(env->file, &env);
+
 	ft_check_path(env->file, &env, ft_check_room(env->file, &env));
-	ft_printf("GET ROOM\n");
-	// ft_printf("%s\n\n", env->file);
+	ft_printf("GET ROOM\n\n");
+	ft_printf("%s", env->file);
 	ft_resolution(env);
-	ft_printf("GET PATH\n");
+	ft_printf("GET PATH\n\n");
 	if (env->nb_path == 1)
 		ft_putsmall_solution(env);
 	else
@@ -152,3 +146,20 @@ int				main(void)
 	// ft_put_lem_in(env);
 	return (0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

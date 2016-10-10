@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 15:29:12 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/10 11:28:08 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/10 19:44:12 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,19 +88,15 @@ int				ft_hashtag(int j, int *i, char *file, t_lem_in *env)
 			env->t_start = 1;
 			(*i)++;
 			j += 8;
-			if (ft_verif_room(j, i, file, env) == 0)
-				ft_error_lem_in_start(tmp, env);
-				// ft_error_lem_in("La salle start n'es pas au bon format", env);
 		}
 		else if (ft_strcmp(tmp, "end") == 0 && env->t_end == 0)
 		{
 			env->t_end = 1;
 			(*i)++;
 			j += 6;
-			if (ft_verif_room(j, i, file, env) == 0)
-				ft_error_lem_in_start(tmp, env);
-				// ft_error_lem_in("La salle end n'es pas au bon format", env);
 		}
+		else if (ft_strcmp(tmp, "end") == 0 || ft_strcmp(tmp, "start") == 0)
+			ft_error_lem_in(NULL, env);
 		else
 			(*i)++;
 		ft_strdel(&tmp);
@@ -124,16 +120,22 @@ int				ft_check_room(char *file, t_lem_in **env)
 	while (file[i] != '\0')
 	{
 		j = i;
+		if ((*env)->t_start == 1 && (*env)->t_end == 1)
+			ft_error_lem_in(NULL, (*env));
 		if (file[i] == '#' && i++)
 			ft_hashtag(j, &i, file, *env);
-		else if (file[i] == 'L')
-			ft_error_lem_in("Une salle commence par la lettre 'L'", *env);
 		else if (ft_verif_room(j, &i, file, *env) == 0)
 			break ;
 	}
-	if ((*env)->t_start == 0)
+	while (file[i] != '\0')
+	{
+		if (file[i] == '#' && i++)
+			ft_hashtag(j, &i, file, *env);
+		i++;
+	}
+	if ((*env)->start == NULL)
 		ft_error_lem_in("Il manque une salle start", *env);
-	else if ((*env)->t_end == 0)
+	else if ((*env)->end == NULL)
 		ft_error_lem_in("Il manque une salle end", *env);
 	ft_init_doors(*env);
 	return (j - 1);
