@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:40:54 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/09 20:36:52 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/12 18:15:41 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct		s_room
 	struct s_room	*begin;
 	struct s_room	*path;
 	struct s_room	*tmp_path;
+	struct s_room	*nxt_hash;
 	struct s_room	**doors;
 }					t_room;
 
@@ -59,6 +60,7 @@ typedef struct		s_lem_in
 	int				t_end;
 	t_room			*start;
 	t_room			*end;
+	t_room			**hash;
 }					t_lem_in;
 
 void				ft_error_lem_in(char *str, t_lem_in *env);
@@ -78,7 +80,7 @@ void				ft_put_solution(t_lem_in *env);
 // void				ft_get_file(char **file, t_lem_in *env, int verif);
 void				ft_get_file(char **file, t_lem_in *env);
 
-int					ft_hash(char *word);
+int					ft_hash(char *word, t_lem_in *env);
 
 
 #endif

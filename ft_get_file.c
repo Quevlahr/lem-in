@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 16:55:03 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/12 13:13:56 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/12 16:52:10 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void			ft_scd_part(char *line, t_lem_in *env)
 				i++;
 			if (line[i] != '\0')
 				ft_error_lem_in_start(line, env);
+			env->nb_room++;
 			return ;
 		}
 		i++;
@@ -104,11 +105,7 @@ void			ft_get_file(char **file, t_lem_in *env)
 		if (*file == NULL)
 			*file = ft_strnew(0);
 		if (ft_analyse(line, env) == 0)
-		{
-			while (get_next_line(0, &line) > 0)
-				ft_strdel(&line);
 			break ;
-		}
 		else
 		{
 			tmp = *file;

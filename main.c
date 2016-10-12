@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/12 13:03:23 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/12 18:11:15 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ static void		ft_init_env(t_lem_in *env)
 	env->fst_part = 0;
 	env->scd_part = 0;
 	env->thd_part = 0;
+	env->hash = NULL;
 }
 
 int				main(void)
@@ -129,14 +130,11 @@ int				main(void)
 	env = (t_lem_in*)malloc(sizeof (t_lem_in));
 	ft_init_env(env);
 	ft_get_file(&env->file, env);
-	ft_printf("GET FILE\n\n");
 	ft_nb_ants(env->file, &env);
 
 	ft_check_path(env->file, &env, ft_check_room(env->file, &env));
-	ft_printf("GET ROOM\n\n");
-	ft_printf("%s\n", env->file);
 	ft_resolution(env);
-	ft_printf("GET PATH\n\n");
+	// ft_printf("%s\n", env->file);
 	if (env->nb_path == 1)
 		ft_putsmall_solution(env);
 	else

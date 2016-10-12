@@ -6,11 +6,36 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 15:29:12 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/10 19:44:12 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/12 18:29:34 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void			ft_init_doors(t_lem_in *env)
+{
+	int			j;
+
+	j = 0;
+	ft_printf("env->nb_room %d\n", (int)(env->nb_room * 1.5));
+	// env->nb_room = ft_len_room(env->room->begin);
+	// ft_printf("env->nb_room %d\n", env->nb_room);
+	env->room = env->room->begin;
+	while (env->room)
+	{
+		env->room->doors = (t_room**)malloc(sizeof(t_room*) * env->nb_room);
+		j = 0;
+		while (j < env->nb_room)
+		{
+			env->room->doors[j] = NULL;
+			j++;
+		}
+		if (env->room->next == NULL)
+			break ;
+		env->room = env->room->next;
+	}
+	env->room = env->room->begin;
+}
 
 int				ft_recup_room(int i, char *file, t_lem_in *env)
 {
@@ -31,29 +56,6 @@ int				ft_recup_room(int i, char *file, t_lem_in *env)
 	i++;
 	ft_push_room(env);
 	return (i);
-}
-
-void			ft_init_doors(t_lem_in *env)
-{
-	int			j;
-
-	j = 0;
-	env->nb_room = ft_len_room(env->room->begin);
-	env->room = env->room->begin;
-	while (env->room)
-	{
-		env->room->doors = (t_room**)malloc(sizeof(t_room*) * env->nb_room);
-		j = 0;
-		while (j < env->nb_room)
-		{
-			env->room->doors[j] = NULL;
-			j++;
-		}
-		if (env->room->next == NULL)
-			break ;
-		env->room = env->room->next;
-	}
-	env->room = env->room->begin;
 }
 
 int				ft_verif_room(int j, int *i, char *file, t_lem_in *env)
@@ -115,6 +117,16 @@ int				ft_check_room(char *file, t_lem_in **env)
 	int			i;
 	int			j;
 
+	int k = 0;
+	(*env)->hash = (t_room**)malloc(sizeof(t_room*) * (int)((*env)->nb_room * 1.5));
+	while (k < (int)((*env)->nb_room * 1.5))
+	{
+		(*env)->hash[k] = NULL;
+		k++;
+	}
+
+
+
 	i = (*env)->tmp;
 	i++;
 	while (file[i] != '\0')
@@ -138,5 +150,36 @@ int				ft_check_room(char *file, t_lem_in **env)
 	else if ((*env)->end == NULL)
 		ft_error_lem_in("Il manque une salle end", *env);
 	ft_init_doors(*env);
+
+
+
+	// k = 0;
+	// while (k < (*env)->nb_room + 1)
+	// {
+	// 	if ((*env)->hash[k] != NULL)
+	// 		ft_printf("salle %s, hashé %d\n", (*env)->hash[k]->name, k);
+	// 	k++;
+	// }
+
+
+
 	return (j - 1);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

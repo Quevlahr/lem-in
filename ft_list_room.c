@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 14:01:08 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/10 11:29:46 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/12 18:28:28 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_room			*ft_new_room(t_lem_in *env)
 	if (!(new_room = (t_room*)malloc(sizeof(t_room))))
 		ft_error_lem_in("Malloc error", env);
 	new_room->name = ft_strdup(env->tmp_name);
-	ft_strdel(&env->tmp_name);
 	new_room->coo1 = env->tmp_coo1;
 	new_room->coo2 = env->tmp_coo2;
 	new_room->pass = 0;
@@ -29,6 +28,7 @@ t_room			*ft_new_room(t_lem_in *env)
 	new_room->ant = 0;
 	new_room->h_ant = NULL;
 	new_room->doors = NULL;
+	new_room->nxt_hash = NULL;
 	if (env->t_start == 1)
 	{
 		env->start = new_room;
@@ -47,6 +47,15 @@ t_room			*ft_new_room(t_lem_in *env)
 		new_room->id = id;
 		id++;
 	}
+	if (env->hash[ft_hash(new_room->name, env)] == NULL)
+		env->hash[ft_hash(new_room->name, env)] = new_room;
+	// else
+	// {
+	// 	env->hash[ft_hash(new_room->name, env)]->nxt_hash
+	// 	while (env->hash[ft_hash(new_room->name, env)] != NULL)
+	// }
+	ft_printf("hash %d\n", ft_hash(env->tmp_name, env));
+	ft_strdel(&env->tmp_name);
 	return (new_room);
 }
 
