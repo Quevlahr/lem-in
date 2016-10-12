@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 16:55:03 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/10 12:49:12 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/12 13:13:56 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,26 +94,50 @@ int				ft_analyse(char *line, t_lem_in *env)
 
 void			ft_get_file(char **file, t_lem_in *env)
 {
-	int			i;
 	char		*line;
 	char		*tmp;
 
-	i = 0;
 	line = NULL;
 	tmp = NULL;
-	while (get_next_line(0, &line) > 0 && i == 0)
+	while (get_next_line(0, &line) > 0)
 	{
 		if (*file == NULL)
 			*file = ft_strnew(0);
 		if (ft_analyse(line, env) == 0)
-			i = 1;
-		tmp = *file;
-		*file = ft_strjoin(tmp, line);
-		ft_strdel(&tmp);
-		ft_strdel(&line);
-		tmp = *file;
-		*file = ft_strjoin(tmp, "\n");
-		ft_strdel(&tmp);
+		{
+			while (get_next_line(0, &line) > 0)
+				ft_strdel(&line);
+			break ;
+		}
+		else
+		{
+			tmp = *file;
+			*file = ft_strjoin(tmp, line);
+			ft_strdel(&tmp);
+			tmp = *file;
+			*file = ft_strjoin(tmp, "\n");
+			ft_strdel(&tmp);
+			ft_strdel(&line);
+		}
 	}
+	ft_strdel(&tmp);
 	ft_strdel(&line);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
