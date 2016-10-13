@@ -52,6 +52,32 @@ void			ft_error_lem_in(char *str, t_lem_in *env)
 	exit(EXIT_FAILURE);
 }
 
+void			ft_put_hashtable(t_lem_in *env)
+{
+	int			k;
+
+	k = 0;
+	t_room	*tmp2 = NULL;
+	while (k < (int)(env->nb_room * 1.5))
+	{
+		if (env->hash[k] != NULL)
+			ft_printf("salle %s, hashé %d\n", env->hash[k]->name, k);
+		if (env->hash[k] != NULL && env->hash[k]->nxt_hash != NULL)
+		{
+			ft_printf("En collision avec :\n");
+			tmp2 = env->hash[k];
+			while (tmp2 != NULL)
+			{
+				tmp2 = tmp2->nxt_hash;
+				ft_printf("\tsalle %s, hashé %d\n", tmp2->name, k);
+				if (tmp2->nxt_hash == NULL)
+					break ;
+			}
+		}
+		k++;
+	}
+}
+
 void			ft_put_lem_in(t_lem_in *env)
 {
 	ft_printf("nb fourmis : %d\n\n", env->nb_ant);
@@ -105,9 +131,7 @@ void			free_all(t_lem_in **env)
 }
 
 
-
-
-
+	
 
 
 

@@ -77,6 +77,7 @@ void				ft_push_room(t_lem_in *env);
 int					ft_resolution(t_lem_in *env);
 
 void				ft_put_solution(t_lem_in *env);
+void				ft_put_hashtable(t_lem_in *env);
 // void				ft_get_file(char **file, t_lem_in *env, int verif);
 void				ft_get_file(char **file, t_lem_in *env);
 

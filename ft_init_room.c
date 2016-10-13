@@ -17,9 +17,6 @@ void			ft_init_doors(t_lem_in *env)
 	int			j;
 
 	j = 0;
-	ft_printf("env->nb_room %d\n", (int)(env->nb_room * 1.5));
-	// env->nb_room = ft_len_room(env->room->begin);
-	// ft_printf("env->nb_room %d\n", env->nb_room);
 	env->room = env->room->begin;
 	while (env->room)
 	{
@@ -150,29 +147,6 @@ int				ft_check_room(char *file, t_lem_in **env)
 	else if ((*env)->end == NULL)
 		ft_error_lem_in("Il manque une salle end", *env);
 	ft_init_doors(*env);
-
-
-
-	k = 0;
-	while (k < (int)((*env)->nb_room * 1.5))
-	{
-		if ((*env)->hash[k] != NULL)
-			ft_printf("salle %s, hashé %d\n", (*env)->hash[k]->name, k);
-		if ((*env)->hash[k] != NULL && (*env)->hash[k]->nxt_hash != NULL)
-		{
-			while ((*env)->hash[k] != NULL)
-			{
-				(*env)->hash[k] = (*env)->hash[k]->nxt_hash;
-				ft_printf("salle %s, hashé %d\n", (*env)->hash[k]->name, k);
-				if ((*env)->hash[k]->nxt_hash == NULL)
-					break ;
-			}
-		}
-		k++;
-	}
-
-
-
 	return (j - 1);
 }
 

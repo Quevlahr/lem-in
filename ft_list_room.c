@@ -12,21 +12,21 @@
 
 #include "lem_in.h"
 
-void			ft_push_hash_room(t_room *room, t_room **hash_room)
+void			ft_push_hash_room(t_room *new, t_room **hash_room)
 {
-	if (*hash_room == NULL)
-		*hash_room = room;
+	if ((*hash_room) == NULL)
+		(*hash_room) = new;
 	else
 	{
-		while (*hash_room != NULL)
+		while ((*hash_room) != NULL)
 		{
 			if ((*hash_room)->nxt_hash == NULL)
 			{
-				(*hash_room)->nxt_hash = room;
+				(*hash_room)->nxt_hash = new;
 				break ;
 			}
 			else
-				*hash_room = (*hash_room)->nxt_hash;
+				(*hash_room) = (*hash_room)->nxt_hash;
 		}
 	}
 }
@@ -67,7 +67,7 @@ t_room			*ft_new_room(t_lem_in *env)
 		id++;
 	}
 	ft_push_hash_room(new_room, &env->hash[ft_hash(new_room->name, env)]);
-	ft_printf("%s, %d\n", new_room->name, ft_hash(new_room->name, env));
+	// ft_printf("%s, %d\n", new_room->name, ft_hash(new_room->name, env));
 	ft_strdel(&env->tmp_name);
 	return (new_room);
 }
