@@ -6,11 +6,30 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 14:01:08 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/12 18:28:28 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/13 12:51:10 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void			ft_push_hash_room(t_room *room, t_room **hash_room)
+{
+	if (*hash_room == NULL)
+		*hash_room = room;
+	else
+	{
+		while (*hash_room != NULL)
+		{
+			if ((*hash_room)->nxt_hash == NULL)
+			{
+				(*hash_room)->nxt_hash = room;
+				break ;
+			}
+			else
+				*hash_room = (*hash_room)->nxt_hash;
+		}
+	}
+}
 
 t_room			*ft_new_room(t_lem_in *env)
 {
@@ -47,14 +66,8 @@ t_room			*ft_new_room(t_lem_in *env)
 		new_room->id = id;
 		id++;
 	}
-	if (env->hash[ft_hash(new_room->name, env)] == NULL)
-		env->hash[ft_hash(new_room->name, env)] = new_room;
-	// else
-	// {
-	// 	env->hash[ft_hash(new_room->name, env)]->nxt_hash
-	// 	while (env->hash[ft_hash(new_room->name, env)] != NULL)
-	// }
-	ft_printf("hash %d\n", ft_hash(env->tmp_name, env));
+	ft_push_hash_room(new_room, &env->hash[ft_hash(new_room->name, env)]);
+	ft_printf("%s, %d\n", new_room->name, ft_hash(new_room->name, env));
 	ft_strdel(&env->tmp_name);
 	return (new_room);
 }

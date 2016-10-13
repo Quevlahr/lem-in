@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 15:29:12 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/12 18:29:34 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/13 12:35:15 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,13 +153,23 @@ int				ft_check_room(char *file, t_lem_in **env)
 
 
 
-	// k = 0;
-	// while (k < (*env)->nb_room + 1)
-	// {
-	// 	if ((*env)->hash[k] != NULL)
-	// 		ft_printf("salle %s, hashé %d\n", (*env)->hash[k]->name, k);
-	// 	k++;
-	// }
+	k = 0;
+	while (k < (int)((*env)->nb_room * 1.5))
+	{
+		if ((*env)->hash[k] != NULL)
+			ft_printf("salle %s, hashé %d\n", (*env)->hash[k]->name, k);
+		if ((*env)->hash[k] != NULL && (*env)->hash[k]->nxt_hash != NULL)
+		{
+			while ((*env)->hash[k] != NULL)
+			{
+				(*env)->hash[k] = (*env)->hash[k]->nxt_hash;
+				ft_printf("salle %s, hashé %d\n", (*env)->hash[k]->name, k);
+				if ((*env)->hash[k]->nxt_hash == NULL)
+					break ;
+			}
+		}
+		k++;
+	}
 
 
 
