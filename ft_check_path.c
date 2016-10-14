@@ -6,13 +6,13 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/14 12:09:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/14 16:26:51 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/14 18:56:27 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void			ft_change_file(t_lem_in *env, char **str, int i)
+int				ft_change_file(t_lem_in *env, char **str, int i)
 {
 	char		*file;
 
@@ -22,6 +22,7 @@ void			ft_change_file(t_lem_in *env, char **str, int i)
 	env->file = ft_strsub(file, 0, i);
 	ft_strdel(&file);
 	ft_strdel(str);
+	return (1);
 }
 
 t_room			*ft_found_hash(t_lem_in *env, char *str)
@@ -29,7 +30,6 @@ t_room			*ft_found_hash(t_lem_in *env, char *str)
 	t_room		*room;
 
 	room = env->hash[ft_hash(str, env)];
-	// ft_printf("name %s, str %s\n", room->name, str);
 	if (room == NULL)
 		return (NULL);
 	if (ft_strcmp(room->name, str) == 0)
@@ -42,11 +42,6 @@ t_room			*ft_found_hash(t_lem_in *env, char *str)
 				room = room->nxt_hash;
 			if (room != NULL && ft_strcmp(room->name, str) == 0)
 				return (room);
-			// else if (room != NULL)
-			// {
-			// 	ft_printf("collision : name %s, str %s\n", room->name, str);
-			// 	ft_error_lem_in(NULL, env);
-			// }
 			if (room == NULL)
 				return (NULL);
 		}
@@ -54,8 +49,61 @@ t_room			*ft_found_hash(t_lem_in *env, char *str)
 	return (NULL);
 }
 
-void			ft_check_path(char *file, t_lem_in **env, int i)
+int				ft_check_path(char *file, t_lem_in **env, int i)
 {
+
+	// int			j;
+	// char		*str1;
+	// char		*str2;
+	// t_room		*tmp;
+
+	// while (file[i] != '\0')
+	// {
+	// 	j = 0;
+	// 	str1 = NULL;
+	// 	str2 = NULL;
+	// 	tmp = NULL;
+	// 	i++;
+	// 	while (file[i] != '\0' && file[i] != '-' && file[i] != '\n' && i++)
+	// 		j++;
+	// 	if (file[i] != '\0' && file[i] != '\n')
+	// 	{
+	// 		str1 = ft_strsub(file, i - j, j);
+	// 		j = 0;
+	// 		i++;
+	// 		while (file[i] != '\0' && file[i] != '\n' && i++)
+	// 			j++;
+	// 		str2 = ft_strsub(file, i - j, j);
+	// 		while ((*env)->room)
+	// 		{
+	// 			j = 0;
+	// 			if (ft_strcmp(str1, (*env)->room->name) == 0 && tmp == NULL)
+	// 				tmp = (*env)->room;
+	// 			else if (ft_strcmp(str2, (*env)->room->name) == 0 && tmp == NULL)
+	// 				tmp = (*env)->room;
+	// 			else if ((ft_strcmp(str2, (*env)->room->name) == 0 ||
+	// 				ft_strcmp(str1, (*env)->room->name) == 0) && tmp != NULL)
+	// 			{
+	// 				while ((*env)->room->doors[j] != NULL)
+	// 					j++;
+	// 				(*env)->room->doors[j] = tmp;
+	// 				j = 0;
+	// 				while (tmp->doors[j] != NULL)
+	// 					j++;
+	// 				tmp->doors[j] = (*env)->room;
+	// 			}
+	// 			if ((*env)->room->next == NULL)
+	// 				break ;
+	// 			(*env)->room = (*env)->room->next;
+	// 		}
+	// 		(*env)->room = (*env)->room->begin;
+	// 	}
+	// 	ft_strdel(&str1);
+	// 	ft_strdel(&str2);
+	// }
+	// return (0);
+
+
 	int			j;
 	char		*str;
 	t_room		*tmp;
@@ -78,10 +126,7 @@ void			ft_check_path(char *file, t_lem_in **env, int i)
 				ft_error_lem_in(NULL, *env);
 			str = ft_strsub(file, i, j - i);
 			if ((tmp = ft_found_hash(*env, str)) == NULL)
-			{
-				ft_change_file(*env, &str, i);
-				return ;
-			}
+				return (ft_change_file(*env, &str, i));
 			ft_strdel(&str);
 
 			j++;
@@ -90,10 +135,7 @@ void			ft_check_path(char *file, t_lem_in **env, int i)
 
 			str = ft_strsub(file, j, i - j);
 			if (((*env)->room = ft_found_hash(*env, str)) == NULL)
-			{
-				ft_change_file(*env, &str, i);
-				return ;
-			}
+				return (ft_change_file(*env, &str, i));
 			ft_strdel(&str);
 
 			j = 0;
@@ -107,4 +149,5 @@ void			ft_check_path(char *file, t_lem_in **env, int i)
 		}
 		i++;
 	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 14:01:08 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/14 16:26:29 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/14 17:46:16 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,7 @@ t_room			*ft_new_room(t_lem_in *env)
 		id++;
 	}
 	ft_strdel(&env->tmp_name);
-	if (ft_hash(new_room->name, env) == 1377)
-		ft_printf("name : %s\n", new_room->name);
 	ft_push_hash_room(env, new_room, &env->hash[ft_hash(new_room->name, env)]);
-	// ft_printf("%s, %d\n", new_room->name, ft_hash(new_room->name, env));
 	return (new_room);
 }
 

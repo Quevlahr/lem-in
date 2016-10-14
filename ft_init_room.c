@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 15:29:12 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/14 12:46:14 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/14 17:25:30 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int				ft_hashtag(int j, int *i, char *file, t_lem_in *env)
 			j += 6;
 		}
 		else if (ft_strcmp(tmp, "end") == 0 || ft_strcmp(tmp, "start") == 0)
-			ft_error_lem_in(NULL, env);
+			ft_error_lem_in_start(tmp, env);
 		else
 			(*i)++;
 		ft_strdel(&tmp);
