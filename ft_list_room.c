@@ -37,7 +37,7 @@ t_room			*ft_new_room(t_lem_in *env)
 	static int	id = 2;
 
 	if (!(new_room = (t_room*)malloc(sizeof(t_room))))
-		ft_error_lem_in("Malloc error", env);
+		ft_error_lem_in(NULL, env);
 	new_room->name = ft_strdup(env->tmp_name);
 	new_room->coo1 = env->tmp_coo1;
 	new_room->coo2 = env->tmp_coo2;

@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/12 18:11:15 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/14 12:25:16 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,76 +32,6 @@ void			ft_nb_ants(char *file, t_lem_in **env)
 	(*env)->tmp = i;
 	if ((*env)->nb_ant <= 0)
 		ft_error_lem_in(NULL, (*env));
-}
-
-t_room			*ft_found_hash(t_lem_in *env, char *str)
-{
-	t_room		*room;
-
-	room = env->hash[ft_hash(str, env)];
-	if (room == NULL)
-		ft_error_lem_in("Une salle n'a pas été définie", env);
-	if (ft_strcmp(room->name, str) == 0)
-		return (room);
-	else
-	{
-		while (room != NULL)
-		{
-			if (room->nxt_hash != NULL)
-				room = room->nxt_hash;
-			if (room != NULL && ft_strcmp(room->name, str) == 0)
-				return (room);
-			if (room == NULL)
-				ft_error_lem_in("Une salle n'a pas été définie", env);
-		}
-	}
-	return (NULL);
-}
-
-void			ft_check_path(char *file, t_lem_in **env, int i)
-{
-	int			j;
-	char		*str;
-	t_room		*tmp;
-
-	i++;
-	j = 0;
-	str = NULL;
-	tmp = NULL;
-	while (file[i] != '\0')
-	{
-		if (file[i] == '#')
-			while (file[i] != '\n')
-				i++;
-		else
-		{
-			j = i;
-			while (file[j] != '-')
-				j++;
-
-			str = ft_strsub(file, i, j - i);
-			tmp = ft_found_hash(*env, str);
-			ft_strdel(&str);
-
-			j++;
-			while (file[i] != '\n')
-				i++;
-
-			str = ft_strsub(file, j, i - j);
-			(*env)->room = ft_found_hash(*env, str);
-			ft_strdel(&str);
-
-			j = 0;
-			while (tmp->doors[j] != NULL)
-				j++;
-			tmp->doors[j] = (*env)->room;
-			j = 0;
-			while ((*env)->room->doors[j] != NULL)
-				j++;
-			(*env)->room->doors[j] = tmp;
-		}
-		i++;
-	}
 }
 
 void			ft_putsmall_solution(t_lem_in *env)
@@ -148,18 +78,19 @@ int				main(void)
 	ft_get_file(&env->file, env);
 	ft_nb_ants(env->file, &env);
 
+	ft_printf("%s\n", env->file);
 
 	ft_check_path(env->file, &env, ft_check_room(env->file, &env));
 
-
-	ft_put_hashtable(env);
+	ft_printf("%s\n", env->file);
 	ft_put_lem_in(env);
+
 	ft_resolution(env);
-	// ft_printf("%s\n", env->file);
 	if (env->nb_path == 1)
 		ft_putsmall_solution(env);
 	else
 		ft_put_solution(env);
+	ft_put_hashtable(env);
 	free_all(&env);
 	free(env);
 	return (0);

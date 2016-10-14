@@ -76,6 +76,7 @@ void			ft_put_hashtable(t_lem_in *env)
 		}
 		k++;
 	}
+	ft_printf("\n");
 }
 
 void			ft_put_lem_in(t_lem_in *env)
@@ -102,6 +103,7 @@ void			ft_put_lem_in(t_lem_in *env)
 			break ;
 		env->room = env->room->next;
 	}
+	ft_printf("\n");
 }
 
 void			free_all(t_lem_in **env)
@@ -126,6 +128,7 @@ void			free_all(t_lem_in **env)
 		free((*env)->room);
 		(*env)->room = tmp;
 	}
+	free((*env)->hash);
 	ft_strdel(&(*env)->tmp_name);
 	ft_strdel(&(*env)->file);
 }

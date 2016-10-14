@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 15:29:12 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/13 12:35:15 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/14 12:46:14 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,11 +142,13 @@ int				ft_check_room(char *file, t_lem_in **env)
 			ft_hashtag(j, &i, file, *env);
 		i++;
 	}
-	if ((*env)->start == NULL)
-		ft_error_lem_in("Il manque une salle start", *env);
-	else if ((*env)->end == NULL)
-		ft_error_lem_in("Il manque une salle end", *env);
 	ft_init_doors(*env);
+	if ((*env)->start == NULL)
+		ft_error_lem_in(NULL, *env);
+		// ft_error_lem_in("Il manque une salle start", *env);
+	else if ((*env)->end == NULL)
+		ft_error_lem_in(NULL, *env);
+		// ft_error_lem_in("Il manque une salle end", *env);
 	return (j - 1);
 }
 

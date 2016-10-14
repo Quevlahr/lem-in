@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 16:55:03 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/12 16:52:10 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/14 12:52:24 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				ft_thd_part(char *line)
 		return (0);
 	while (line[i])
 	{
-		if (line[i] == '-')
+		if (line[i] == '-' && i++)
 			if (line[i] == 'L' || line[i] == '#')
 				return (0);
 		if (line[i] == ' ')
