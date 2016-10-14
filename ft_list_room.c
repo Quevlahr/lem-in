@@ -6,27 +6,36 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 14:01:08 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/13 12:51:10 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/14 16:26:29 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void			ft_push_hash_room(t_room *new, t_room **hash_room)
+void			ft_push_hash_room(t_lem_in *env, t_room *new, t_room **hash_room)
 {
+	t_room		*tmp;
+
+	tmp = (*hash_room);
 	if ((*hash_room) == NULL)
 		(*hash_room) = new;
 	else
 	{
-		while ((*hash_room) != NULL)
+		while (tmp != NULL)
 		{
-			if ((*hash_room)->nxt_hash == NULL)
+			if (ft_strcmp(tmp->name, new->name) == 0)
 			{
-				(*hash_room)->nxt_hash = new;
+				ft_strdel(&new->name);
+				free(new);
+				ft_error_lem_in(NULL, env);
+			}
+			if (tmp->nxt_hash == NULL)
+			{
+				tmp->nxt_hash = new;
 				break ;
 			}
 			else
-				(*hash_room) = (*hash_room)->nxt_hash;
+				tmp = tmp->nxt_hash;
 		}
 	}
 }
@@ -66,9 +75,11 @@ t_room			*ft_new_room(t_lem_in *env)
 		new_room->id = id;
 		id++;
 	}
-	ft_push_hash_room(new_room, &env->hash[ft_hash(new_room->name, env)]);
-	// ft_printf("%s, %d\n", new_room->name, ft_hash(new_room->name, env));
 	ft_strdel(&env->tmp_name);
+	if (ft_hash(new_room->name, env) == 1377)
+		ft_printf("name : %s\n", new_room->name);
+	ft_push_hash_room(env, new_room, &env->hash[ft_hash(new_room->name, env)]);
+	// ft_printf("%s, %d\n", new_room->name, ft_hash(new_room->name, env));
 	return (new_room);
 }
 

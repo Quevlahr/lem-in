@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/14 12:09:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/14 12:55:10 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/14 16:26:51 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void			ft_change_file(t_lem_in *env, char **str, int i)
 	env->file = ft_strsub(file, 0, i);
 	ft_strdel(&file);
 	ft_strdel(str);
-	ft_printf("%s\n", env->file);
 }
 
 t_room			*ft_found_hash(t_lem_in *env, char *str)
@@ -30,6 +29,7 @@ t_room			*ft_found_hash(t_lem_in *env, char *str)
 	t_room		*room;
 
 	room = env->hash[ft_hash(str, env)];
+	// ft_printf("name %s, str %s\n", room->name, str);
 	if (room == NULL)
 		return (NULL);
 	if (ft_strcmp(room->name, str) == 0)
@@ -42,6 +42,11 @@ t_room			*ft_found_hash(t_lem_in *env, char *str)
 				room = room->nxt_hash;
 			if (room != NULL && ft_strcmp(room->name, str) == 0)
 				return (room);
+			// else if (room != NULL)
+			// {
+			// 	ft_printf("collision : name %s, str %s\n", room->name, str);
+			// 	ft_error_lem_in(NULL, env);
+			// }
 			if (room == NULL)
 				return (NULL);
 		}
@@ -59,7 +64,6 @@ void			ft_check_path(char *file, t_lem_in **env, int i)
 	j = 0;
 	str = NULL;
 	tmp = NULL;
-	ft_printf("%s\n", file + i);
 	while (file[i] != '\0')
 	{
 		if (file[i] == '#')
@@ -70,7 +74,8 @@ void			ft_check_path(char *file, t_lem_in **env, int i)
 			j = i;
 			while (file[j] != '\0' && file[j] != '-')
 				j++;
-
+			if (file[j] == '\0')
+				ft_error_lem_in(NULL, *env);
 			str = ft_strsub(file, i, j - i);
 			if ((tmp = ft_found_hash(*env, str)) == NULL)
 			{

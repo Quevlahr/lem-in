@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 16:55:03 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/14 12:52:24 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/14 15:27:38 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void			ft_scd_part(char *line, t_lem_in *env)
 			if (line[i] != '\0')
 				ft_error_lem_in_start(line, env);
 			env->nb_room++;
+			env->scd_part = 1;
 			return ;
 		}
 		i++;
@@ -72,7 +73,6 @@ void			ft_fst_part(char *line, t_lem_in *env)
 			ft_error_lem_in_start(line, env);
 	}
 	env->fst_part = 1;
-	env->scd_part = 1;
 }
 
 int				ft_analyse(char *line, t_lem_in *env)
@@ -85,9 +85,9 @@ int				ft_analyse(char *line, t_lem_in *env)
 		 return (1);
 	if (env->fst_part == 0)
 		ft_fst_part(line, env);	
-	else if (env->scd_part == 1 && env->thd_part == 0)
+	else if (env->fst_part == 1 && env->thd_part == 0)
 		ft_scd_part(line, env);
-	if (env->thd_part == 1)
+	if (env->thd_part == 1 && env->scd_part == 1)
 		if (ft_thd_part(line) == 0)
 			return (0);
 	return (1);
@@ -119,6 +119,9 @@ void			ft_get_file(char **file, t_lem_in *env)
 	}
 	ft_strdel(&tmp);
 	ft_strdel(&line);
+	// ft_printf("%d, %d, %d\n", env->fst_part, env->scd_part, env->thd_part);
+	if (env->fst_part == 0 || env->scd_part == 0 || env->thd_part == 0)
+		ft_error_lem_in(NULL, env);
 }
 
 
