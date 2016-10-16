@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/18 18:37:18 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/14 15:38:15 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/16 17:17:33 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void			ft_error_lem_in_start(char *str, t_lem_in *env)
 	if (env->room != NULL)
 		free_all(&env);
 	free(env);
-	full_clr_gnl();
+	// full_clr_gnl();
 	ft_printf("ERROR\n");
 	exit(EXIT_FAILURE);
 }
@@ -48,7 +48,7 @@ void			ft_error_lem_in(char *str, t_lem_in *env)
 		ft_printf("%s\n", str);
 	else
 		ft_printf("ERROR\n");
-	full_clr_gnl();
+	// full_clr_gnl();
 	exit(EXIT_FAILURE);
 }
 
