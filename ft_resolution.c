@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 19:08:06 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/16 19:44:32 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/17 20:17:08 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,19 @@ int				ft_solve(t_lem_in *env, t_room *start, int *nb)
 
 	i = 0;
 	start->pass = 1;
+	// ft_printf("name [%s]\n", start->name);
 	while (start->doors[i])
 	{
+
+		// if (ft_strcmp(start->name, "326") == 0)
+		// {
+		// 	ft_printf("name [%s]\n", start->doors[i]->name);
+		// }
+
+
 		if (start->doors[i]->id == 1)
 		{
+			// ft_printf("[%s]\n", start->doors[i]->name);
 			(*nb)++;
 			start->pass = 0;
 			if (start->id == 0)
@@ -38,6 +47,7 @@ int				ft_solve(t_lem_in *env, t_room *start, int *nb)
 	{
 		if (start->doors[i]->pass == 0)
 		{
+			ft_printf("avance [%s]\n", start->name);
 			start->tmp_path = start->doors[i];
 			(*nb)++;
 			if ((*nb) < env->tmp && (tmp = ft_solve(env, start->doors[i], nb)))
@@ -53,6 +63,7 @@ int				ft_solve(t_lem_in *env, t_room *start, int *nb)
 					env->room = env->room->tmp_path;
 				}
 			}
+			ft_printf("recule [%s]\n", start->name);
 			if ((*nb) >= env->tmp)
 				(*nb)--;
 		}
@@ -61,6 +72,7 @@ int				ft_solve(t_lem_in *env, t_room *start, int *nb)
 	}
 	(*nb)--;
 	start->pass = 0;
+
 	return (0);
 }
 

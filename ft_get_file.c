@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 16:55:03 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/16 19:42:15 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/17 18:57:07 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,15 @@ int				ft_analyse(char *line, t_lem_in *env)
 		ft_error_lem_in_start(line, env);
 	else if (line[0] == '\0' && env->thd_part == 1)
 		return (0);
+
 	if (line[0] == '#')
-		 return (1);
+		return (1);
+
 	if (env->fst_part == 0)
-		ft_fst_part(line, env);	
+		ft_fst_part(line, env);
 	else if (env->fst_part == 1 && env->thd_part == 0)
 		ft_scd_part(line, env);
+
 	if (env->thd_part == 1 && env->scd_part == 1)
 		if (ft_thd_part(line) == 0)
 			return (0);
@@ -100,10 +103,13 @@ void			ft_get_file(char **file, t_lem_in *env)
 
 	line = NULL;
 	tmp = NULL;
+
+	if (*file == NULL)
+		*file = ft_strnew(0);
+
+
 	while (get_next_line(0, &line) > 0)
 	{
-		if (*file == NULL)
-			*file = ft_strnew(0);
 		if (ft_analyse(line, env) == 0)
 			break ;
 		else
@@ -111,15 +117,13 @@ void			ft_get_file(char **file, t_lem_in *env)
 			tmp = *file;
 			*file = ft_strjoin(tmp, line);
 			ft_strdel(&tmp);
-			tmp = *file;
-			*file = ft_strjoin(tmp, "\n");
-			ft_strdel(&tmp);
+			*file = ft_strcat(*file, "\n");
 			ft_strdel(&line);
 		}
 	}
 	ft_strdel(&tmp);
 	ft_strdel(&line);
-	// ft_printf("%d, %d, %d\n", env->fst_part, env->scd_part, env->thd_part);
+	// // ft_printf("%d, %d, %d\n", env->fst_part, env->scd_part, env->thd_part);
 	if (env->fst_part == 0 || env->scd_part == 0 || env->thd_part == 0)
 		ft_error_lem_in(NULL, env);
 }
