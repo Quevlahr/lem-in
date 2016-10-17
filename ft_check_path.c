@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/14 12:09:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/17 17:55:55 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/17 21:00:27 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,18 @@ int				ft_check_path(char *file, t_lem_in **env, int i)
 			(*env)->room->doors[j] = tmp;
 		}
 		i++;
+	}
+
+	tmp = (*env)->room->begin;
+	while (tmp)
+	{
+		j = 0;
+		while (tmp->doors[j] != NULL)
+			j++;
+		tmp->nb_doors = j;
+		if (tmp->next == NULL)
+			break ;
+		tmp = tmp->next;
 	}
 	return (1);
 }

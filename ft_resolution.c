@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 19:08:06 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/17 20:17:08 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/17 21:00:50 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,9 @@ int				ft_solve(t_lem_in *env, t_room *start, int *nb)
 
 	i = 0;
 	start->pass = 1;
-	// ft_printf("name [%s]\n", start->name);
+	start->pass2++;
 	while (start->doors[i])
 	{
-
-		// if (ft_strcmp(start->name, "326") == 0)
-		// {
-		// 	ft_printf("name [%s]\n", start->doors[i]->name);
-		// }
-
-
 		if (start->doors[i]->id == 1)
 		{
 			// ft_printf("[%s]\n", start->doors[i]->name);
@@ -45,7 +38,7 @@ int				ft_solve(t_lem_in *env, t_room *start, int *nb)
 	i = 0;
 	while (start->doors[i])
 	{
-		if (start->doors[i]->pass == 0)
+		if (start->doors[i]->pass == 0 && start->doors[i]->pass2 < start->doors[i]->nb_doors)
 		{
 			ft_printf("avance [%s]\n", start->name);
 			start->tmp_path = start->doors[i];

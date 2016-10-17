@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:40:54 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/14 17:39:35 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/17 20:59:31 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ typedef struct		s_room
 	int				coo2;
 	int				id;
 	int				pass;
+	int				pass2;
 	int				ant;
+	int				nb_doors;
 	struct s_ant	*h_ant;
 	struct s_room	*next;
 	struct s_room	*begin;
