@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:40:54 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/17 20:59:31 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/18 18:49:52 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ typedef struct		s_room
 	int				pass;
 	int				pass2;
 	int				ant;
+	int				dead_end;
 	int				nb_doors;
+
+	int				pds;
+
 	struct s_ant	*h_ant;
 	struct s_room	*next;
 	struct s_room	*begin;

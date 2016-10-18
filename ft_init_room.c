@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 15:29:12 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/14 17:25:30 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/18 12:36:28 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ int				ft_check_room(char *file, t_lem_in **env)
 	}
 	while (file[i] != '\0')
 	{
+
 		if (file[i] == '#' && i++)
 			ft_hashtag(j, &i, file, *env);
 		i++;
