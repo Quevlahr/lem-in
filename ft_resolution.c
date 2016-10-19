@@ -71,27 +71,33 @@
 // 	return (0);
 // }
 
-int				ft_solve(t_lem_in *env, t_room *room)
+void			ft_solve(t_lem_in *env, t_room *room)
 {
 	int			i;
+	t_room		*tmp;
 
 	i = 0;
-	if (room->id == 1)
-		return (1);
-	while (room)
+	ft_printf("SALLE %s\n", room->name);
+	room->pass = 1;
+	while (room->doors[i])
 	{
-		while (room->doors[i])
+		tmp = room->doors[i];
+		if (tmp->pds == 0 || tmp->pds > room->pds + 1)
 		{
-			if (room->doors[i]->pds == 0 || room->doors[i]->pds > room->pds + 1)
-			{
-				room->doors[i]->pds = room->pds + 1;
-				if (ft_solve(env, room->doors[i]) == 1)
-					return (1);
-			}
-			i++;
+			tmp->pds = room->pds + 1;
+			ft_printf("salle %s, pds %d\n", tmp->name, tmp->pds);
 		}
+		i++;
 	}
-	return (0);
+	i = 0;
+	while (room->doors[i])
+	{
+		env->room = room;
+		if (room->doors[i]->pass == 0)
+			ft_solve(env, room->doors[i]);
+		i++;
+	}
+	return ;
 }
 
 int				ft_resolution(t_lem_in *env)
@@ -100,7 +106,8 @@ int				ft_resolution(t_lem_in *env)
 
 	nb = 0;
 	env->tmp = env->nb_room;
-	env->start->pds++;
+	env->start->pds = 1;
+	env->room = env->start;
 	// ft_solve(env, env->start, &nb);
 	ft_solve(env, env->start);
 
