@@ -71,13 +71,39 @@
 // 	return (0);
 // }
 
+int				ft_find_path(t_lem_in *env, t_room *room)
+{
+	int			nb;
+	int			i;
+
+	nb = 0;
+	i = 0;
+	if (room->id == 1)
+	{
+		// room->pass = 1;
+		return (1);
+	}
+	while (room->doors[i])
+	{
+		if (room->pds > room->doors[i]->pds && room->doors[i]->pass == 0)
+		{
+			ft_printf("%s vers %s\n", room->name, room->doors[i]->name);
+			room->pass = 1;
+			if (ft_find_path(env, room->doors[i]) == 1)
+				ft_printf("SALLE FIN TROUVE\n");
+		}
+		i++;
+	}
+	return (0);
+}
+
 void			ft_solve(t_lem_in *env, t_room *room)
 {
 	int			i;
 	t_room		*tmp;
 
 	i = 0;
-	ft_printf("SALLE %s\n", room->name);
+	// ft_printf("SALLE %s\n", room->name);
 	room->pass = 1;
 	while (room->doors[i])
 	{
@@ -85,7 +111,7 @@ void			ft_solve(t_lem_in *env, t_room *room)
 		if (tmp->pds == 0 || tmp->pds > room->pds + 1)
 		{
 			tmp->pds = room->pds + 1;
-			ft_printf("salle %s, pds %d\n", tmp->name, tmp->pds);
+			// ft_printf("salle %s, pds %d\n", tmp->name, tmp->pds);
 		}
 		i++;
 	}
@@ -104,22 +130,35 @@ int				ft_resolution(t_lem_in *env)
 {
 	int			nb;
 
-	nb = 0;
-	env->tmp = env->nb_room;
-	env->start->pds = 1;
-	env->room = env->start;
+	env->end->pds = 1;
 	// ft_solve(env, env->start, &nb);
-	ft_solve(env, env->start);
-
-
-	env->room = env->start;
+	ft_solve(env, env->end);
+	env->room = env->room->begin;
 	while (env->room)
 	{
-		ft_printf("salle %s, poids %d\n", env->room->name, env->room->pds);
+		env->room->pass = 0;
 		if (env->room->next == NULL)
 			break ;
 		env->room = env->room->next;
 	}
+	ft_find_path(env, env->start);
+	// int i = 0;
+	// int tmp = 0;
+	// nb = env->end->pds;
+	// env->room = env->end;
+	// env->room = env->start;
+	// while (env->room)
+	// {
+	// 	while (env->room->doors[i]->pds < env->room->pds)
+	// 	{
+	// 		i++;
+	// 		if ()
+	// 	}
+	// 	ft_printf("salle %s, poids %d\n", env->room->name, env->room->pds);
+	// 	if (env->room->next == NULL)
+	// 		break ;
+	// 	env->room = env->room->next;
+	// }
 
 
 
