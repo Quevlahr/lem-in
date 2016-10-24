@@ -125,8 +125,49 @@ void			ft_put_solution(t_lem_in *env)
 
 
 
+// char			*ft_tab_path(t_lem_in *env)
+// {
+// 	char		**tab;
+// 	int			i;
 
+// 	i = 0;
+// 	tab = (char**)malloc(sizeof(char*) * )
+// 	while (env->path[i])
+// 	{
+// 		env->room = env->path[i];
+// 		while (env->room)
+// 		{
+// 			nb++;
+// 			ft_printf("path : %s\n", env->room->name);
+// 			if (env->room->path == NULL)
+// 				break ;
+// 			env->room = env->room->path;
+// 		}
+// 		ft_printf("\n");
+// 		i++;
+// 	}
+// }
 
+// int				ft_put_ants(t_lem_in *env, t_room *room, int *ant)
+// {
+// 	if (room->id == 1)
+// 	{
+// 		return (0);
+// 	}
+
+// 	return (0);
+// }
+
+// void			ft_put_solution(t_lem_in *env)
+// {
+// 	int			ant;
+// 	t_room		*tmp;
+
+// 	ant = 0;
+// 	tmp = env->path[0];
+// 	ft_put_ants(env, tmp, &ant);
+
+// }
 
 
 

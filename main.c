@@ -67,6 +67,7 @@ static void		ft_init_env(t_lem_in *env)
 	env->scd_part = 0;
 	env->thd_part = 0;
 	env->hash = NULL;
+	env->path = NULL;
 }
 
 int				main(void)
