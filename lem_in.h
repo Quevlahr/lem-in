@@ -67,6 +67,7 @@ typedef struct		s_lem_in
 	t_room			*start;
 	t_room			*end;
 	t_room			**hash;
+	t_room			**path;
 }					t_lem_in;
 
 void				ft_error_lem_in(char *str, t_lem_in *env);
