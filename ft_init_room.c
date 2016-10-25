@@ -113,17 +113,15 @@ int				ft_check_room(char *file, t_lem_in **env)
 {
 	int			i;
 	int			j;
+	int			k;
 
-	int k = 0;
+	k = 0;
 	(*env)->hash = (t_room**)malloc(sizeof(t_room*) * (int)((*env)->nb_room * 1.5));
 	while (k < (int)((*env)->nb_room * 1.5))
 	{
 		(*env)->hash[k] = NULL;
 		k++;
 	}
-
-
-
 	i = (*env)->tmp;
 	i++;
 	while (file[i] != '\0')
@@ -138,7 +136,6 @@ int				ft_check_room(char *file, t_lem_in **env)
 	}
 	while (file[i] != '\0')
 	{
-
 		if (file[i] == '#' && i++)
 			ft_hashtag(j, &i, file, *env);
 		i++;
@@ -152,21 +149,3 @@ int				ft_check_room(char *file, t_lem_in **env)
 		// ft_error_lem_in("Il manque une salle end", *env);
 	return (j - 1);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

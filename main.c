@@ -25,6 +25,7 @@ void			ft_nb_ants(char *file, t_lem_in **env)
 		ft_hashtag(i, &i, file, *env);
 		if ((*env)->t_start != 0 || (*env)->t_end != 0)
 			ft_error_lem_in(NULL, *env);
+			// ft_error_lem_in("Les commandes start et end sont mal placés");
 	}
 	(*env)->nb_ant = ft_atoi(file + i);
 	while (ft_isdigit(file[i]) == 1)
@@ -32,6 +33,7 @@ void			ft_nb_ants(char *file, t_lem_in **env)
 	(*env)->tmp = i;
 	if ((*env)->nb_ant <= 0)
 		ft_error_lem_in(NULL, (*env));
+		// ft_error_lem_in("Le nombre de fourmi n'es pas correct");
 }
 
 void			ft_putsmall_solution(t_lem_in *env)

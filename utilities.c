@@ -26,7 +26,7 @@ void			full_clr_gnl(void)
 	ft_strdel(&line);
 }
 
-void			ft_error_lem_in_start(char *str, t_lem_in *env)
+void			ft_error_lem_in_start(char *msg, char *str, t_lem_in *env)
 {
 	ft_strdel(&env->file);
 	ft_strdel(&str);
@@ -34,7 +34,10 @@ void			ft_error_lem_in_start(char *str, t_lem_in *env)
 		free_all(&env);
 	free(env);
 	// full_clr_gnl();
-	ft_printf("ERROR\n");
+	if (msg == NULL)
+		ft_printf("ERROR\n");
+	else
+		ft_printf("%s\n", msg);
 	exit(EXIT_FAILURE);
 }
 

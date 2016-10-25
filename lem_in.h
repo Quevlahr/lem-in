@@ -78,7 +78,7 @@ typedef struct		s_lem_in
 }					t_lem_in;
 
 void				ft_error_lem_in(char *str, t_lem_in *env);
-void				ft_error_lem_in_start(char *str, t_lem_in *env);
+void				ft_error_lem_in_start(char *msg, char *str, t_lem_in *env);
 void				ft_put_lem_in(t_lem_in *env);
 void				free_all(t_lem_in **env);
 
