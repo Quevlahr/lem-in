@@ -76,7 +76,7 @@ int				ft_find_path(t_lem_in *env, t_room *room, int *nb)
 	i = 0;
 	if (room->id == 1)
 	{
-		// ft_printf("FIN %s\n", room->name);
+		ft_printf("FIN %s\n\n\n", room->name);
 		// room->pass = 1;
 		return (1);
 	}
@@ -85,7 +85,7 @@ int				ft_find_path(t_lem_in *env, t_room *room, int *nb)
 		if (room->pds - 1 == room->doors[i]->pds && room->doors[i]->pass == 0)
 		{
 			(*nb)++;
-			// ft_printf("%5s\n", room->name);
+			ft_printf("%5s\n", room->name);
 			room->path = room->doors[i];
 			// ft_printf("%3d > %3d\n", room->pds, room->doors[i]->pds);
 			room->pass = 1;
@@ -110,7 +110,7 @@ void			ft_solve(t_lem_in *env, t_room *room)
 	while (room->doors[i])
 	{
 		tmp = room->doors[i];
-		if (tmp->pds > room->pds + 1  && room->doors[i]->id != 0)
+		if (tmp->pds > room->pds + 1)//  && room->doors[i]->id != 0)
 		{
 			tmp->pds = room->pds + 1;
 			// ft_printf("salle %s, pds %d\n", tmp->name, tmp->pds);
@@ -127,7 +127,7 @@ void			ft_solve(t_lem_in *env, t_room *room)
 	while (room->doors[i])
 	{
 		env->room = room;
-		if ((env->tmp == 0 || env->tmp > room->pds + 1) && room->doors[i]->pass == 0)// && room->doors[i]->id != 0)
+		if ((env->tmp == 0 || env->tmp > room->pds + 1) && room->doors[i]->pass == 0)
 			ft_solve(env, room->doors[i]);
 		i++;
 	}
@@ -157,45 +157,50 @@ int				ft_resolution(t_lem_in *env)
 		env->room = env->room->next;
 	}
 
-	int tmp = 0;
-	tmp = env->start->pds;
-	int i = 0;
-	env->path = (t_path**)malloc(sizeof(t_path*) * env->start->nb_doors);
-	while (i < env->start->nb_doors)
-		env->path[i++] = NULL;
-	i = 0;
-	while (env->start->doors[i])
-	{
-		env->start->pds = env->start->doors[i]->pds + 1;
-		if (ft_find_path(env, env->start, &nb) == 1)
-		{
-			env->path[i] = (t_path*)malloc(sizeof(t_path));
-			env->path[i]->room = env->start->doors[i];
-			env->path[i]->len = nb;
-		}
-		ft_printf("\n\nSTOP\n\n");
-		i++;
-	}
-	env->nb_path = i;
+	// int tmp = 0;
+	// tmp = env->start->pds;
+	// int i = 0;
 
+	ft_find_path(env, env->start, &nb);
 
-	// nb = env->end->pds;
-	// env->room = env->room->begin;
-	// while (env->room)
+	// TROUVER PLUSIEURS CHEMINS
+	// env->path = (t_path**)malloc(sizeof(t_path*) * env->start->nb_doors);
+	// while (i < env->start->nb_doors)
+	// 	env->path[i++] = NULL;
+	// i = 0;
+	// while (env->start->doors[i])
 	// {
-	// 	ft_printf("salle %s, poids %d\n", env->room->name, env->room->pds);
-	// 	if (env->room->next == NULL)
-	// 		break ;
-	// 	env->room = env->room->next;
+	// 	env->start->pds = env->start->doors[i]->pds + 1;
+	// 	if (ft_find_path(env, env->start, &nb) == 1)
+	// 	{
+	// 		env->path[i] = (t_path*)malloc(sizeof(t_path));
+	// 		env->path[i]->room = env->start->doors[i];
+	// 		env->path[i]->len = nb;
+	// 	}
+	// 	ft_printf("\n\nSTOP\n\n");
+	// 	i++;
 	// }
+	// env->nb_path = i;
+
+
+	nb = env->end->pds;
+	env->room = env->room->begin;
+	while (env->room)
+	{
+		ft_printf("salle %s, poids %d\n", env->room->name, env->room->pds);
+		if (env->room->next == NULL)
+			break ;
+		env->room = env->room->next;
+	}
 
 
 
 	nb = 0;
-	i = 0;
-	while (env->path[i])
-	{
-		env->room = env->path[i]->room;
+	// i = 0;
+	// while (env->path[i])
+	// {
+	// 	env->room = env->path[i]->room;
+	env->room = env->start;
 		while (env->room)
 		{
 			nb++;
@@ -205,10 +210,11 @@ int				ft_resolution(t_lem_in *env)
 			env->room = env->room->path;
 		}
 		ft_printf("\n");
-		i++;
-	}
+	// 	i++;
+	// }
 	if (env->room->id != env->end->id)
 		ft_error_lem_in(NULL, env);
+	env->nb_path = nb;
 		// ft_error_lem_in("Il n'y pas de chemin vers la fin", env);
 	return (0);
 }
