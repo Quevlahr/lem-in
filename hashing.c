@@ -26,8 +26,3 @@ int				ft_hash(char *word, t_lem_in *env)
 	}
 	return (hashAddress % (int)(env->nb_room * 1.5));
 }
-
-// void			ft_hashtable_lem_in(t_lem_in *env)
-// {
-
-// }

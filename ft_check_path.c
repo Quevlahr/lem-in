@@ -17,16 +17,12 @@ int				ft_change_file(t_lem_in *env, char **str, int i)
 	char		*file;
 
 	file = env->file;
-	// ft_printf("char [%c]\n", file[i]);
-	// i--;
-	// ft_printf("char [%c]\n", file[i]);
 	while (file[i] != '\0' && file[i] != '\n')
 		i--;
+	i++;
 	env->file = ft_strsub(file, 0, i);
 	ft_strdel(&file);
 	ft_strdel(str);
-	ft_printf("RTYUIOP\n%s", env->file);
-
 	return (1);
 }
 
@@ -34,6 +30,7 @@ t_room			*ft_found_hash(t_lem_in *env, char *str)
 {
 	t_room		*room;
 
+	ft_printf("[%s]\n", str);
 	room = env->hash[ft_hash(str, env)];
 	if (room == NULL)
 		return (NULL);

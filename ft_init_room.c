@@ -31,7 +31,6 @@ void			ft_init_doors(t_lem_in *env)
 			break ;
 		env->room = env->room->next;
 	}
-	env->room = env->room->begin;
 }
 
 int				ft_recup_room(int i, char *file, t_lem_in *env)
@@ -95,7 +94,8 @@ int				ft_hashtag(int j, int *i, char *file, t_lem_in *env)
 			j += 6;
 		}
 		else if (ft_strcmp(tmp, "end") == 0 || ft_strcmp(tmp, "start") == 0)
-			ft_error_lem_in_start(tmp, env);
+			ft_error_lem_in_start(NULL, tmp, env);
+		// 	ft_error_lem_in_start("Il n'y a pas de salle start ou end");
 		else
 			(*i)++;
 		ft_strdel(&tmp);

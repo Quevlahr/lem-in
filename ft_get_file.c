@@ -35,7 +35,7 @@ void			ft_scd_part(char *line, t_lem_in *env, int i)
 {
 	if (line[0] == 'L')
 		ft_error_lem_in_start(NULL, line, env);
-		// ft_error_lem_in_start("Une salle commence par L", line, env);
+		// ft_error_lem_in_start("Une salle ne peut commencer par L", line, env);
 	while (line[i])
 	{
 		if (line[i] == '-' && (env->thd_part = 1))
@@ -71,6 +71,7 @@ void			ft_fst_part(char *line, t_lem_in *env)
 	{
 		if (ft_isdigit(line[i++]) == 0)
 			ft_error_lem_in_start(NULL, line, env);
+			// ft_error_lem_in_start("Il ne doit y avoir que des chiffres", line, env);
 	}
 	env->fst_part = 1;
 }

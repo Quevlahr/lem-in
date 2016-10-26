@@ -147,8 +147,7 @@ int				ft_resolution(t_lem_in *env)
 	
 
 	ft_solve(env, env->end);
-
-	env->room = env->room->begin;
+	env->room = env->start->begin;
 	while (env->room)
 	{
 		env->room->pass = 0;
@@ -214,7 +213,7 @@ int				ft_resolution(t_lem_in *env)
 	// }
 	if (env->room->id != env->end->id)
 		ft_error_lem_in(NULL, env);
-	env->nb_path = nb;
 		// ft_error_lem_in("Il n'y pas de chemin vers la fin", env);
+	env->nb_path = nb;
 	return (0);
 }

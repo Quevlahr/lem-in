@@ -22,7 +22,7 @@ t_ant			*ft_new_ant(int num, t_room **room)
 	return (ant);
 }
 
-char			*ft_record(char *tab, int num, char *name)
+char			*ft_record(char *tab, int num, char *name, int *space)
 {
 	int			i;
 	int			len;
@@ -43,7 +43,9 @@ char			*ft_record(char *tab, int num, char *name)
 	tab2 = ft_strcat(tab2, char_num);
 	tab2 = ft_strcat(tab2, "-");
 	tab2 = ft_strcat(tab2, name);
-	tab2 = ft_strcat(tab2, " ");
+	if (*space != 0)
+		tab2 = ft_strcat(tab2, " ");
+	*space = 1;
 	if (tab == NULL)
 		tab = tab2;
 	else
@@ -61,6 +63,7 @@ void			ft_put_solution(t_lem_in *env)
 {
 	int			num;
 	int			verif;
+	int			space;
 	char		*tab;
 	t_room		*tmp;
 	t_ant		*fake1;
@@ -107,10 +110,11 @@ void			ft_put_solution(t_lem_in *env)
 			tmp->ant += 1;
 		}
 		tmp = env->start->path;
+		space = 0;
 		while (tmp)
 		{
 			if (tmp->h_ant != NULL)
-				tab = ft_record(tab, tmp->h_ant->num, tmp->name);
+				tab = ft_record(tab, tmp->h_ant->num, tmp->name, &space);
 			if (tmp->path == NULL)
 				break ;
 			tmp = tmp->path;

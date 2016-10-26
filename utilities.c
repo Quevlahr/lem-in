@@ -92,7 +92,7 @@ void			ft_put_lem_in(t_lem_in *env)
 		ft_printf("end connect to : %s\n", env->end->doors[i]->name);
 	ft_printf("\n");
 	int i;
-	env->room = env->room->begin;
+	env->room = env->start->begin;
 	while (env->room)
 	{
 		i = 0;

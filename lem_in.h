@@ -85,6 +85,7 @@ void				free_all(t_lem_in **env);
 int					ft_check_room(char *file, t_lem_in **env);
 int					ft_hashtag(int j, int *i, char *file, t_lem_in *env);
 
+int					ft_change_file(t_lem_in *env, char **str, int i);
 int					ft_check_path(char *file, t_lem_in **env, int i);
 
 int					ft_len_room(t_room *room);
