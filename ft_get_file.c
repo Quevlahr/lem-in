@@ -34,8 +34,7 @@ int				ft_thd_part(char *line)
 void			ft_scd_part(char *line, t_lem_in *env, int i)
 {
 	if (line[0] == 'L')
-		ft_error_lem_in_start(NULL, line, env);
-		// ft_error_lem_in_start("Une salle ne peut commencer par L", line, env);
+		ft_error_lem_in_start(BAD_ROOM_NAME, line, env);
 	while (line[i])
 	{
 		if (line[i] == '-' && (env->thd_part = 1))
@@ -46,13 +45,11 @@ void			ft_scd_part(char *line, t_lem_in *env, int i)
 			while (ft_isdigit(line[i]) == 1)
 				i++;
 			if (line[i++] != ' ')
-				ft_error_lem_in_start(NULL, line, env);
-				// ft_error_lem_in_start("Il faut un espace entre les coordonnées", line, env);
+				ft_error_lem_in_start(SPACE_NEED_COO, line, env);
 			while (ft_isdigit(line[i]) == 1)
 				i++;
 			if (line[i] != '\0')
-				ft_error_lem_in_start(NULL, line, env);
-				// ft_error_lem_in_start("Les coordonnées doivent etre des nombres", line, env);
+				ft_error_lem_in_start(COO_NUM, line, env);
 			env->nb_room++;
 			env->scd_part = 1;
 			return ;
@@ -70,8 +67,7 @@ void			ft_fst_part(char *line, t_lem_in *env)
 	while (line[i])
 	{
 		if (ft_isdigit(line[i++]) == 0)
-			ft_error_lem_in_start(NULL, line, env);
-			// ft_error_lem_in_start("Il ne doit y avoir que des chiffres", line, env);
+			ft_error_lem_in_start(BAD_NB_ANT, line, env);
 	}
 	env->fst_part = 1;
 }

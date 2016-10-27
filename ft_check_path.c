@@ -30,7 +30,6 @@ t_room			*ft_found_hash(t_lem_in *env, char *str)
 {
 	t_room		*room;
 
-	ft_printf("[%s]\n", str);
 	room = env->hash[ft_hash(str, env)];
 	if (room == NULL)
 		return (NULL);
@@ -66,7 +65,7 @@ int				ft_check_path(char *file, t_lem_in **env, int i)
 		else
 		{
 			j = i;
-			while (file[j] != '\0' && file[j] != '-')
+			while (file[j] != '\0' && file[j] != '-' && file[j] != '\n')
 				j++;
 			if (file[j] == '\0')
 				ft_error_lem_in(NULL, *env);
@@ -76,7 +75,7 @@ int				ft_check_path(char *file, t_lem_in **env, int i)
 			ft_strdel(&str);
 
 			j++;
-			while (file[i] != '\n')
+			while (file[i] != '\0' && file[i] != '\n')
 				i++;
 
 			str = ft_strsub(file, j, i - j);
@@ -84,6 +83,9 @@ int				ft_check_path(char *file, t_lem_in **env, int i)
 				return (ft_change_file(*env, &str, --i));
 			ft_strdel(&str);
 
+			// Lien d'une salle vers la meme salle
+			// if ((*env)->room->id == tmp->id)
+			// 	return (ft_change_file(*env, &str, --i));
 			j = 0;
 			while (tmp->doors[j] != NULL)
 				j++;
@@ -109,57 +111,4 @@ int				ft_check_path(char *file, t_lem_in **env, int i)
 		tmp = tmp->next;
 	}
 	return (1);
-
-
-	// int			j;
-	// char		*str1;
-	// char		*str2;
-	// t_room		*tmp;
-
-	// while (file[i] != '\0')
-	// {
-	// 	j = 0;
-	// 	str1 = NULL;
-	// 	str2 = NULL;
-	// 	tmp = NULL;
-	// 	i++;
-	// 	while (file[i] != '\0' && file[i] != '-' && file[i] != '\n' && i++)
-	// 		j++;
-	// 	if (file[i] != '\0' && file[i] != '\n')
-	// 	{
-	// 		str1 = ft_strsub(file, i - j, j);
-	// 		j = 0;
-	// 		i++;
-	// 		while (file[i] != '\0' && file[i] != '\n' && i++)
-	// 			j++;
-	// 		str2 = ft_strsub(file, i - j, j);
-	// 		while ((*env)->room)
-	// 		{
-	// 			j = 0;
-	// 			if (ft_strcmp(str1, (*env)->room->name) == 0 && tmp == NULL)
-	// 				tmp = (*env)->room;
-	// 			else if (ft_strcmp(str2, (*env)->room->name) == 0 && tmp == NULL)
-	// 				tmp = (*env)->room;
-	// 			else if ((ft_strcmp(str2, (*env)->room->name) == 0 ||
-	// 				ft_strcmp(str1, (*env)->room->name) == 0) && tmp != NULL)
-	// 			{
-	// 				while ((*env)->room->doors[j] != NULL)
-	// 					j++;
-	// 				(*env)->room->doors[j] = tmp;
-	// 				j = 0;
-	// 				while (tmp->doors[j] != NULL)
-	// 					j++;
-	// 				tmp->doors[j] = (*env)->room;
-	// 			}
-	// 			if ((*env)->room->next == NULL)
-	// 				break ;
-	// 			(*env)->room = (*env)->room->next;
-	// 		}
-	// 		(*env)->room = (*env)->room->begin;
-	// 	}
-	// 	ft_strdel(&str1);
-	// 	ft_strdel(&str2);
-	// }
-	// return (0);
-
 }

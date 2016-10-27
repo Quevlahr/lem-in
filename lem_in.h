@@ -14,6 +14,11 @@
 # define LEM_IN_H
 
 # define BUFF_READ 2000
+# define CMD_BAD_PLACE "Les commandes start et end sont mal placés"
+# define BAD_NB_ANT "Le nombre de fourmi n'est pas correct"
+# define BAD_ROOM_NAME "Une salle ne peut commencer par L"
+# define SPACE_NEED_COO "Il faut un espace entre les coordonnées"
+# define COO_NUM "Les coordonnées doivent etre des nombres"
 
 # include "fcntl.h"
 # include "libft/libft.h"
