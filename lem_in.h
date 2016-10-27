@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:40:54 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/18 18:49:52 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/27 21:10:05 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # define BAD_ROOM_NAME "Une salle ne peut commencer par L"
 # define SPACE_NEED_COO "Il faut un espace entre les coordonnées"
 # define COO_NUM "Les coordonnées doivent etre des nombres"
+# define DOUBLE_CMD "Il ne peut n'y avoir qu'une salle start ou end"
+# define NO_START "Il n'y a pas de salle start"
+# define NO_END "Il n'y pas de salle end"
 
 # include "fcntl.h"
 # include "libft/libft.h"
@@ -88,7 +91,8 @@ void				ft_put_lem_in(t_lem_in *env);
 void				free_all(t_lem_in **env);
 
 int					ft_check_room(char *file, t_lem_in **env);
-int					ft_hashtag(int j, int *i, char *file, t_lem_in *env);
+
+int					ft_hashtag(int *i, char *file, t_lem_in *env);
 
 int					ft_change_file(t_lem_in *env, char **str, int i);
 int					ft_check_path(char *file, t_lem_in **env, int i);

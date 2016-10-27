@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/18 17:41:18 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/10/27 21:10:00 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void			ft_nb_ants(char *file, t_lem_in **env)
 	while (file[i] != '\0' && file[i] == '#')
 	{
 		i++;
-		ft_hashtag(i, &i, file, *env);
+		ft_hashtag(&i, file, *env);
 		if ((*env)->t_start != 0 || (*env)->t_end != 0)
 			ft_error_lem_in(CMD_BAD_PLACE, *env);
 	}
