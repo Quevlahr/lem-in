@@ -6,13 +6,13 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/13 15:29:12 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/27 21:12:30 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/11/01 19:56:53 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void			ft_init_doors(t_lem_in *env)
+static void		ft_init_doors(t_lem_in *env)
 {
 	int			j;
 
@@ -33,7 +33,7 @@ void			ft_init_doors(t_lem_in *env)
 	}
 }
 
-int				ft_recup_room(int i, char *file, t_lem_in *env)
+static int		ft_recup_room(int i, char *file, t_lem_in *env)
 {
 	int			j;
 
@@ -54,7 +54,7 @@ int				ft_recup_room(int i, char *file, t_lem_in *env)
 	return (i);
 }
 
-int				ft_verif_room(int j, int *i, char *file, t_lem_in *env)
+static int		ft_verif_room(int j, int *i, char *file, t_lem_in *env)
 {
 	env->tmp = 0;
 	while (file[(*i)] != '\0' && file[(*i)] != '\n')
@@ -70,21 +70,24 @@ int				ft_verif_room(int j, int *i, char *file, t_lem_in *env)
 	return (1);
 }
 
-int				ft_check_room(char *file, t_lem_in **env)
+static void		ft_init_hashtable(t_lem_in **env, int k)
 {
-	int			i;
-	int			j;
-	int			k;
+	int			tmp;
 
-	k = 0;
-	(*env)->hash = (t_room**)malloc(sizeof(t_room*) * (int)((*env)->nb_room * 1.5));
-	while (k < (int)((*env)->nb_room * 1.5))
+	tmp = (int)((*env)->nb_room * 1.5);
+	(*env)->hash = (t_room**)malloc(sizeof(t_room*) * tmp);
+	while (k < tmp)
 	{
 		(*env)->hash[k] = NULL;
 		k++;
 	}
-	i = (*env)->tmp;
-	i++;
+}
+
+int				ft_check_room(char *file, t_lem_in **env, int i)
+{
+	int			j;
+
+	ft_init_hashtable(env, 0);
 	while (file[i] != '\0')
 	{
 		j = i;
@@ -94,7 +97,6 @@ int				ft_check_room(char *file, t_lem_in **env)
 			ft_hashtag(&i, file, *env);
 		else if (ft_verif_room(j, &i, file, *env) == 0)
 			break ;
-
 	}
 	while (file[i] != '\0')
 	{
@@ -107,5 +109,5 @@ int				ft_check_room(char *file, t_lem_in **env)
 		ft_error_lem_in(NO_START, *env);
 	else if ((*env)->end == NULL)
 		ft_error_lem_in(NO_END, *env);
-	return (j - 1);
+	return (j);
 }

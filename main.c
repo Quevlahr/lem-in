@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/27 21:10:00 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/11/01 20:53:45 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 void			ft_nb_ants(char *file, t_lem_in **env)
 {
 	int			i;
-	int			j;
 
 	i = 0;
-	j = 0;
 	while (file[i] != '\0' && file[i] == '#')
 	{
 		i++;
@@ -56,7 +54,7 @@ static void		ft_init_env(t_lem_in *env)
 	env->end = NULL;
 	env->tmp_coo1 = 0;
 	env->tmp_coo2 = 0;
-	env->nb_path = 1;
+	env->nb_path = 0;
 	env->tmp_name = NULL;
 	env->tmp = 0;
 	env->t_start = 0;
@@ -66,7 +64,6 @@ static void		ft_init_env(t_lem_in *env)
 	env->scd_part = 0;
 	env->thd_part = 0;
 	env->hash = NULL;
-	env->path = NULL;
 }
 
 int				main(void)
@@ -77,7 +74,8 @@ int				main(void)
 	ft_init_env(env);
 	ft_get_file(&env->file, env);
 	ft_nb_ants(env->file, &env);
-	ft_check_path(env->file, &env, ft_check_room(env->file, &env));
+	(env->tmp)++;
+	ft_check_path(&env, ft_check_room(env->file, &env, env->tmp));
 	ft_resolution(env);
 	ft_printf("%s\n", env->file);
 	if (env->nb_path == 1)

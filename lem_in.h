@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:40:54 by quroulon          #+#    #+#             */
-/*   Updated: 2016/11/01 15:42:14 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/11/01 20:53:51 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ typedef struct		s_room
 	int				ant;
 	int				dead_end;
 	int				nb_doors;
-
 	int				pds;
-
 	struct s_ant	*h_ant;
 	struct s_room	*next;
 	struct s_room	*begin;
@@ -75,7 +73,6 @@ typedef struct		s_lem_in
 	t_room			*start;
 	t_room			*end;
 	t_room			**hash;
-	t_path			**path;
 }					t_lem_in;
 
 void				ft_error_lem_in(char *str, t_lem_in *env);
@@ -83,12 +80,12 @@ void				ft_error_lem_in_start(char *msg, char *str, t_lem_in *env);
 void				ft_put_lem_in(t_lem_in *env);
 void				free_all(t_lem_in **env);
 
-int					ft_check_room(char *file, t_lem_in **env);
+int					ft_check_room(char *file, t_lem_in **env, int i);
 
 int					ft_hashtag(int *i, char *file, t_lem_in *env);
 
 int					ft_change_file(t_lem_in *env, char **str, int i);
-int					ft_check_path(char *file, t_lem_in **env, int i);
+int					ft_check_path(t_lem_in **env, int i);
 
 int					ft_len_room(t_room *room);
 void				ft_push_room(t_lem_in *env);
