@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/18 18:37:18 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/27 21:01:47 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/11/01 15:07:41 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void			ft_error_lem_in_start(char *msg, char *str, t_lem_in *env)
 	if (env->room != NULL)
 		free_all(&env);
 	free(env);
-	// full_clr_gnl();
 	if (msg != NULL)
 		ft_printf("ERROR\n", msg);
 	else
@@ -51,7 +50,6 @@ void			ft_error_lem_in(char *str, t_lem_in *env)
 		ft_printf("ERROR\n", str);
 	else
 		ft_printf("ERROR\n");
-	// full_clr_gnl();
 	exit(EXIT_FAILURE);
 }
 
@@ -135,11 +133,3 @@ void			free_all(t_lem_in **env)
 	ft_strdel(&(*env)->tmp_name);
 	ft_strdel(&(*env)->file);
 }
-
-
-	
-
-
-
-
-
