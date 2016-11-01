@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:40:54 by quroulon          #+#    #+#             */
-/*   Updated: 2016/11/01 15:07:06 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/11/01 15:42:14 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,6 @@ typedef struct		s_ant
 	t_room			*room;
 }					t_ant;
 
-typedef struct		s_path
-{
-	int				len;
-	t_room			*room;
-
-}					t_path;
-
 typedef struct		s_lem_in
 {
 	int				tmp;
@@ -107,6 +100,5 @@ void				ft_put_hashtable(t_lem_in *env);
 void				ft_get_file(char **file, t_lem_in *env);
 
 int					ft_hash(char *word, t_lem_in *env);
-
 
 #endif
