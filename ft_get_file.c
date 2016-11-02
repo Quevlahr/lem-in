@@ -6,13 +6,13 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 16:55:03 by quroulon          #+#    #+#             */
-/*   Updated: 2016/10/17 18:57:07 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/11/02 18:41:23 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int				ft_thd_part(char *line)
+static int		ft_thd_part(char *line)
 {
 	int			i;
 
@@ -31,7 +31,7 @@ int				ft_thd_part(char *line)
 	return (1);
 }
 
-void			ft_scd_part(char *line, t_lem_in *env, int i)
+static void		ft_scd_part(char *line, t_lem_in *env, int i)
 {
 	if (line[0] == 'L')
 		ft_error_lem_in_start(BAD_ROOM_NAME, line, env);
@@ -59,7 +59,7 @@ void			ft_scd_part(char *line, t_lem_in *env, int i)
 	ft_error_lem_in_start(NULL, line, env);
 }
 
-void			ft_fst_part(char *line, t_lem_in *env)
+static void		ft_fst_part(char *line, t_lem_in *env)
 {
 	int			i;
 

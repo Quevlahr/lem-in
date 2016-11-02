@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/11/01 20:53:45 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/11/02 18:47:50 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,25 @@ void			ft_putsmall_solution(t_lem_in *env)
 
 static void		ft_init_env(t_lem_in *env)
 {
-	env->room = NULL;
-	env->nb_ant = 0;
-	env->nb_room = 0;
-	env->room = NULL;
-	env->start = NULL;
-	env->end = NULL;
-	env->tmp_coo1 = 0;
-	env->tmp_coo2 = 0;
-	env->nb_path = 0;
-	env->tmp_name = NULL;
+	env->i = 0;
 	env->tmp = 0;
-	env->t_start = 0;
-	env->t_end = 0;
-	env->file = NULL;
 	env->fst_part = 0;
 	env->scd_part = 0;
 	env->thd_part = 0;
+	env->nb_ant = 0;
+	env->nb_room = 0;
+	env->tmp_coo1 = 0;
+	env->tmp_coo2 = 0;
+	env->nb_path = 0;
+	env->t_start = 0;
+	env->t_end = 0;
+	env->file = NULL;
+	env->tmp_name = NULL;
+	env->fst_ant = NULL;
+	env->scd_ant = NULL;
+	env->room = NULL;
+	env->start = NULL;
+	env->end = NULL;
 	env->hash = NULL;
 }
 

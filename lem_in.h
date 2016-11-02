@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:40:54 by quroulon          #+#    #+#             */
-/*   Updated: 2016/11/02 15:45:12 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/11/02 19:04:46 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ typedef struct		s_ant
 
 typedef struct		s_lem_in
 {
-	int				tmp;
 	int				i;
+	int				tmp;
 	int				fst_part;
 	int				scd_part;
 	int				thd_part;
@@ -65,39 +65,75 @@ typedef struct		s_lem_in
 	int				tmp_coo1;
 	int				tmp_coo2;
 	int				nb_path;
-	char			*tmp_name;
-	t_room			*room;
-	char			*file;
 	int				t_start;
 	int				t_end;
+	char			*file;
+	char			*tmp_name;
+	t_ant			*fst_ant;
+	t_ant			*scd_ant;
+	t_room			*room;
 	t_room			*start;
 	t_room			*end;
 	t_room			**hash;
 }					t_lem_in;
 
-void				ft_error_lem_in(char *str, t_lem_in *env);
-void				ft_error_lem_in_start(char *msg, char *str, t_lem_in *env);
-void				ft_put_lem_in(t_lem_in *env);
-void				free_all(t_lem_in **env);
+/*
+** ft_check_path.c
+*/
+int					ft_check_path(t_lem_in **env, int i);
 
-int					ft_check_room(char *file, t_lem_in **env, int i);
-
-int					ft_hashtag(int *i, char *file, t_lem_in *env);
-
+/*
+** ft_check_path2.c
+*/
 int					ft_change_file(t_lem_in *env, char **str, int i);
 t_room				*ft_found_hash(t_lem_in *env, char *str);
 
-int					ft_check_path(t_lem_in **env, int i);
-
-int					ft_len_room(t_room *room);
-void				ft_push_room(t_lem_in *env);
-
-int					ft_resolution(t_lem_in *env);
-
-void				ft_put_solution(t_lem_in *env);
-void				ft_put_hashtable(t_lem_in *env);
+/*
+** ft_get_file.c
+*/
 void				ft_get_file(char **file, t_lem_in *env);
 
+/*
+** ft_init_room.c
+*/
+int					ft_check_room(char *file, t_lem_in **env, int i);
+
+/*
+** ft_list_room.c
+*/
+void				ft_push_room(t_lem_in *env);
+int					ft_len_room(t_room *room);
+
+/*
+** ft_init_room2.c
+*/
+int					ft_hashtag(int *i, char *file, t_lem_in *env);
+
+/*
+** ft_resolution.c
+*/
+int					ft_resolution(t_lem_in *env);
+
+/*
+** ft_put_solution.c
+*/
+
+void				ft_put_solution(t_lem_in *env);
+/*
+** ft_param_put_solution.c
+*/
+t_ant				*ft_new_ant(int num, t_room **room);
+
+/*
+** hashing.c
+*/
 int					ft_hash(char *word, t_lem_in *env);
+
+/*
+** utilities.c
+*/
+void				ft_error_lem_in_start(char *msg, char *str, t_lem_in *env);
+void				ft_error_lem_in(char *str, t_lem_in *env);
+void				free_all(t_lem_in **env);
 
 #endif
