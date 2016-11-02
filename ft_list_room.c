@@ -12,13 +12,13 @@
 
 #include "lem_in.h"
 
-void			ft_push_hash_room(t_lem_in *env, t_room *new, t_room **hash_room)
+static void		ft_push_hash_room(t_lem_in *env, t_room *new, t_room **hash)
 {
 	t_room		*tmp;
 
-	tmp = (*hash_room);
-	if ((*hash_room) == NULL)
-		(*hash_room) = new;
+	tmp = (*hash);
+	if ((*hash) == NULL)
+		(*hash) = new;
 	else
 	{
 		while (tmp != NULL)
@@ -40,13 +40,8 @@ void			ft_push_hash_room(t_lem_in *env, t_room *new, t_room **hash_room)
 	}
 }
 
-t_room			*ft_new_room(t_lem_in *env)
+static void		ft_init_new_room(t_lem_in *env, t_room *new_room)
 {
-	t_room		*new_room;
-	static int	id = 2;
-
-	if (!(new_room = (t_room*)malloc(sizeof(t_room))))
-		ft_error_lem_in(NULL, env);
 	new_room->name = ft_strdup(env->tmp_name);
 	new_room->coo1 = env->tmp_coo1;
 	new_room->coo2 = env->tmp_coo2;
@@ -55,14 +50,19 @@ t_room			*ft_new_room(t_lem_in *env)
 	new_room->ant = 0;
 	new_room->dead_end = 0;
 	new_room->nb_doors = 0;
-
 	new_room->pds = 0;
-
 	new_room->h_ant = NULL;
 	new_room->path = NULL;
 	new_room->tmp_path = NULL;
 	new_room->nxt_hash = NULL;
 	new_room->doors = NULL;
+}
+
+t_room			*ft_new_room(t_lem_in *env, t_room *new_room)
+{
+	static int	id = 2;
+
+	ft_init_new_room(env, new_room);
 	if (env->t_start == 1)
 	{
 		env->start = new_room;
@@ -88,9 +88,13 @@ t_room			*ft_new_room(t_lem_in *env)
 
 void			ft_push_room(t_lem_in *env)
 {
+	t_room		*new_room;
+
+	if (!(new_room = (t_room*)malloc(sizeof(t_room))))
+		ft_error_lem_in(NULL, env);
 	if (env->room == NULL)
 	{
-		env->room = ft_new_room(env);
+		env->room = ft_new_room(env, new_room);
 		env->room->next = NULL;
 		env->room->begin = env->room;
 	}
@@ -98,7 +102,7 @@ void			ft_push_room(t_lem_in *env)
 	{
 		while (env->room->next)
 			env->room = env->room->next;
-		env->room->next = ft_new_room(env);
+		env->room->next = ft_new_room(env, new_room);
 		env->room->next->begin = env->room->begin;
 		env->room = env->room->next;
 		env->room->next = NULL;

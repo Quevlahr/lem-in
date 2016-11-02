@@ -15,14 +15,14 @@
 int				ft_hash(char *word, t_lem_in *env)
 {
 	int			cpt;
-	int			hashAddress;
+	int			hash_address;
 
-	hashAddress = 5381;
+	hash_address = 5381;
 	cpt = 0;
 	while (word[cpt] != '\0')
 	{
-	    hashAddress = ((hashAddress << 5) + hashAddress) + word[cpt];
+		hash_address = ((hash_address << 5) + hash_address) + word[cpt];
 		cpt++;
 	}
-	return (hashAddress % (int)(env->nb_room * 1.5));
+	return (hash_address % (int)(env->nb_room * 1.5));
 }

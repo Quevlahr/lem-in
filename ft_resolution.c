@@ -33,33 +33,29 @@ int				ft_find_path(t_lem_in *env, t_room *room)
 	return (0);
 }
 
-void			ft_solve(t_lem_in *env, t_room *room)
+void			ft_solve(t_lem_in *env, t_room *r, t_room *tmp, int i)
 {
-	int			i;
-	t_room		*tmp;
-
-	i = 0;
-	if (room->id == 0)
-		env->tmp = room->pds;
-	room->pass = 1;
-	while (room->doors[i])
+	if (r->id == 0)
+		env->tmp = r->pds;
+	r->pass = 1;
+	while (r->doors[i])
 	{
-		tmp = room->doors[i];
-		if (tmp->pds > room->pds + 1)
+		tmp = r->doors[i];
+		if (tmp->pds > r->pds + 1)
 		{
-			tmp->pds = room->pds + 1;
-			ft_solve(env, room->doors[i]);
+			tmp->pds = r->pds + 1;
+			ft_solve(env, r->doors[i], NULL, 0);
 		}
 		else if (tmp->pds == 0)
-			tmp->pds = room->pds + 1;
+			tmp->pds = r->pds + 1;
 		i++;
 	}
 	i = 0;
-	while (room->doors[i])
+	while (r->doors[i])
 	{
-		env->room = room;
-		if ((env->tmp == 0 || env->tmp > room->pds + 1) && room->doors[i]->pass == 0)
-			ft_solve(env, room->doors[i]);
+		env->room = r;
+		if ((env->tmp == 0 || env->tmp > r->pds + 1) && r->doors[i]->pass == 0)
+			ft_solve(env, r->doors[i], NULL, 0);
 		i++;
 	}
 	return ;
@@ -69,7 +65,7 @@ int				ft_resolution(t_lem_in *env)
 {
 	env->end->pds = 1;
 	env->tmp = 0;
-	ft_solve(env, env->end);
+	ft_solve(env, env->end, NULL, 0);
 	env->room = env->start->begin;
 	while (env->room)
 	{

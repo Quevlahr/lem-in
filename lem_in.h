@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:40:54 by quroulon          #+#    #+#             */
-/*   Updated: 2016/11/01 20:53:51 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/11/02 15:45:12 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int					ft_check_room(char *file, t_lem_in **env, int i);
 int					ft_hashtag(int *i, char *file, t_lem_in *env);
 
 int					ft_change_file(t_lem_in *env, char **str, int i);
+t_room				*ft_found_hash(t_lem_in *env, char *str);
+
 int					ft_check_path(t_lem_in **env, int i);
 
 int					ft_len_room(t_room *room);
