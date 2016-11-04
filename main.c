@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:42:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/11/02 18:47:50 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/11/04 15:23:11 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int				main(void)
 	if (env->nb_path == 1)
 		ft_putsmall_solution(env);
 	else
-		ft_put_solution(env);
+		ft_put_solution(env, 1, 0, NULL);
 	free_all(&env);
 	free(env);
 	return (0);

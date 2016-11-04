@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 14:50:06 by quroulon          #+#    #+#             */
-/*   Updated: 2016/11/02 18:56:32 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/11/04 15:23:07 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,8 @@ static int		ft_record_ant(t_lem_in *env, t_room **tmp, int *verif)
 	return (1);
 }
 
-void			ft_put_solution(t_lem_in *env)
+void			ft_put_solution(t_lem_in *env, int num, int verif, t_room *tmp)
 {
-	int			num;
-	int			verif;
-	t_room		*tmp;
-
-	num = 1;
-	verif = 0;
 	while (env->end->ant + 1 < env->nb_ant)
 	{
 		tmp = env->start->path;
@@ -108,10 +102,8 @@ void			ft_put_solution(t_lem_in *env)
 		if (tmp->path)
 			tmp = tmp->path;
 		while (tmp)
-		{
 			if (ft_record_ant(env, &tmp, &verif) == 0)
 				break ;
-		}
 		if (tmp->id == env->end->id && verif != 0)
 		{
 			verif = 0;

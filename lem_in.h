@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:40:54 by quroulon          #+#    #+#             */
-/*   Updated: 2016/11/02 19:04:46 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/11/04 15:23:45 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int					ft_resolution(t_lem_in *env);
 ** ft_put_solution.c
 */
 
-void				ft_put_solution(t_lem_in *env);
+void				ft_put_solution(t_lem_in *env, int num, int v, t_room *t);
 /*
 ** ft_param_put_solution.c
 */
