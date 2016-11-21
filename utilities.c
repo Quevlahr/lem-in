@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/18 18:37:18 by quroulon          #+#    #+#             */
-/*   Updated: 2016/11/01 20:14:39 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/11/21 18:25:15 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void			ft_error_lem_in_start(char *msg, char *str, t_lem_in *env)
 		free_all(&env);
 	free(env);
 	if (msg != NULL)
-		ft_printf("ERROR\n", msg);
+		ft_printf("ERROR : %s\n", msg);
 	else
 		ft_printf("ERROR\n");
 	exit(EXIT_FAILURE);
@@ -33,7 +33,7 @@ void			ft_error_lem_in(char *str, t_lem_in *env)
 		free_all(&env);
 	free(env);
 	if (str != NULL)
-		ft_printf("ERROR\n", str);
+		ft_printf("ERROR : %s\n", str);
 	else
 		ft_printf("ERROR\n");
 	exit(EXIT_FAILURE);

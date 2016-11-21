@@ -6,7 +6,7 @@
 /*   By: quroulon <quroulon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/14 12:09:29 by quroulon          #+#    #+#             */
-/*   Updated: 2016/11/02 15:45:17 by quroulon         ###   ########.fr       */
+/*   Updated: 2016/11/21 18:24:04 by quroulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,12 @@ static int		ft_check_path2(t_lem_in **env, int *i, t_room *tmp)
 	if (((*env)->room = ft_concur_room2(*env, i, &j)) == NULL)
 		return (0);
 	j = 0;
-	while (tmp->doors[j] != NULL)
+	while (tmp->doors[j] != NULL && tmp->doors[j]->id != (*env)->room->id)
 		j++;
 	tmp->doors[j] = (*env)->room;
 	j = 0;
-	while ((*env)->room->doors[j] != NULL)
+	while ((*env)->room->doors[j] != NULL &&
+		tmp->id != (*env)->room->doors[j]->id)
 		j++;
 	(*env)->room->doors[j] = tmp;
 	return (1);
